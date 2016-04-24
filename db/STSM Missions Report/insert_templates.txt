@@ -1,0 +1,30 @@
+ Inserting donations
+
+ insert into donation(last_name, first_name, donation_value, is_check, check_number, participant_id) 
+ 	values ('CHEN','JEROME',70,true, 202, 
+ 		(select participant_id 
+ 			from participant 
+ 			where first_name='ANDREW'
+ 			 and last_name like '%KIM%' 
+ 			 and last_name like '%C2%' 
+ 			 and team_id = 'CHI2016'));
+
+
+ Inserting audit
+
+ insert into audit(donation_id, audit_date, auditor) 
+ 	values (1, current_date, 'JC');
+
+ Inserting users?
+
+ insert into users(email, encrypted_password, participant_id)
+ 	values ('annieyang@gmail.com', 'ENCRYPTED', 
+ 		(select p.participant_id
+ 		from user_code u, participant p
+ 		where u.participant_id=p.participant_id
+ 		and p.first_name='ANNIE'
+ 		and p.last_name like '%YANG%'
+ 		and u.code = 'asdf'));
+
+
+ 

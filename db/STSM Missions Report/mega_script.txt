@@ -1,0 +1,14 @@
+psql -U postgres -h localhost
+create table team (team_ID varchar(7), team_country varchar(30), team_year int, primary key (team_ID));
+create table participant (participant_ID serial, last_name varchar(30), first_name varchar(30), gender varchar(1), year int, school varchar(20), team_ID varchar(7), is_leader boolean default false, is_admin boolean default false, primary key (participant_ID), foreign key(team_ID) references team(team_ID));
+create table donation (donation_ID serial, last_name varchar(30), first_name varchar(30), participant_ID int, donation_value numeric, is_check boolean, check_number int, primary key (donation_ID), foreign key (participant_ID) references participant(participant_ID));
+create table audit (audit_id serial, donation_ID int, audit_date date, auditor varchar(4), primary key (audit_id), foreign key(donation_ID) references donation(donation_ID));
+create table user_code (code varchar(10), participant_ID int, primary key (code), foreign key(participant_ID) references participant(participant_ID));
+
+\copy team from 'C:\Users\MichaelI\Desktop\KCMSTSM\db\STSM Missions Report\csv\team.csv' delimiter ',' csv
+\copy participant(last_name, first_name, gender, year, school, team_id) from 'C:\Users\MichaelI\Desktop\KCMSTSM\db\STSM Missions Report\csv\participant.csv' delimiter ',' csv
+\copy participant(last_name, first_name, gender, year, school, team_id, is_leader) from 'C:\Users\MichaelI\Desktop\KCMSTSM\db\STSM Missions Report\csv\leaders.csv' delimiter ',' csv
+\copy user_code from 'C:\Users\MichaelI\Desktop\KCMSTSM\db\STSM Missions Report\csv\user_code.csv' delimiter ',' csv
+
+insert into donation(last_name, first_name, donation_value, is_check, participant_id)  select 'DEPOSIT','INITIAL',200,FALSE, participant_id from participant where participant_id between 7 and 98;
+

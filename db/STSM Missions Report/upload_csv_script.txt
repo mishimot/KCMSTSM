@@ -1,0 +1,4 @@
+\copy team from 'C:/Users/Jerome/Documents/STSM Missions Report/csv/team.csv' delimiter ',' csv
+\copy participant(last_name, first_name, gender, year, school, team_id) from 'C:/Users/Jerome/Documents/STSM Missions Report/csv/participant.csv' delimiter ',' csv
+\copy participant(last_name, first_name, gender, year, school, team_id, is_leader) from 'C:/Users/Jerome/Documents/STSM Missions Report/csv/leaders.csv' delimiter ',' csv
+\copy user_code from 'C:/Users/Jerome/Documents/STSM Missions Report/csv/user_code.csv' delimiter ',' csv
