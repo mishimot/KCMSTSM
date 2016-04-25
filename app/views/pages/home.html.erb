@@ -1,2 +1,6 @@
-<h1>Welcome to my app!</h1>
-<p>Sign up <%= link_to "here", signup_path%>.</p>
+<% if !user_signed_in? %>
+	<h1>KCM STSM Finances</h1><br>
+	<p>
+	  <%= render 'devise/sessions/new' %>
+	</p>
+<% end %>

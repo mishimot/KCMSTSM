@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>KCMSTSM</title>
+  <title>KCM STSM Finance</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true%>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
-<div class="container">
-	<%= render 'layouts/header' %>
-	<%= yield %>
-</div>
-
+	<div class="container">
+		<%= render 'layouts/header' %>
+	</div>
+	<div class="container">
+		<% flash.each do |name, msg| %>
+			<%= content_tag(:div, msg, class: "alert alert-#{name}") %>
+		<% end %>
+		<%= yield %>
+	</div>
 </body>
 </html>
