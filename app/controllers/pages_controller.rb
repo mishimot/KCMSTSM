@@ -30,7 +30,7 @@ class PagesController < ApplicationController
 		where u.participant_id=p.participant_id 
 		and u.code = '#{code}' 
 		and p.last_name like '%#{last_name}%'
-		and p.first_name = '#{first_name}';s"
+		and p.first_name = '#{first_name}';)"
 	y = ActiveRecord::Base.connection.execute(sql2)
 	
 	#Finally, we do a check for these values, which will decide if we insert into the users table.
