@@ -24,13 +24,7 @@ class PagesController < ApplicationController
 	#Next, check if the user already was created. We don’t want duplicate users for the same participant. We do this by counting how many users have that specific participant_id:
 	sql2 = "select count(*) 
 		from users 
-		where participant_id = 
-		(select participant_id 
-		from user_code u, participant p 
-		where u.participant_id=p.participant_id 
-		and u.code = '#{code}' 
-		and p.last_name like '%#{last_name}%'
-		and p.first_name = '#{first_name}';)"
+		where participant_id = (select participant_id from user_code u, participant p where u.participant_id=p.participant_id and u.code = '#{code}' and p.last_name like '%#{last_name}%' and p.first_name = '#{first_name}';)"
 	y = ActiveRecord::Base.connection.execute(sql2)
 	
 	#Finally, we do a check for these values, which will decide if we insert into the users table.
