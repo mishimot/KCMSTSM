@@ -6,12 +6,12 @@ class PagesController < ApplicationController
   end
   
   def registered
-	code = params[:code].gsub(/[^0-9A-Za-z]/, '')
-	first_name = params[:first_name].gsub(/[^0-9A-Za-z]/, '')
-	last_name = params[:last_name].gsub(/[^0-9A-Za-z]/, '')
+	code = params[:code].gsub(/[^0-9A-Za-z]/, '').upcase
+	first_name = params[:first_name].gsub(/[^0-9A-Za-z]/, '').upcase
+	last_name = params[:last_name].gsub(/[^0-9A-Za-z]/, '').upcase
 	email = params[:email].gsub(/[^0-9@-Za-z.]/, '')
-	password = params[:password].gsub(/[^0-9A-Za-z]/, '')
-	validate_password = params[:validate_password].gsub(/[^0-9A-Za-z]/, '')
+	password = params[:password].gsub(/[^0-9A-Za-z]/, '').upcase
+	validate_password = params[:validate_password].gsub(/[^0-9A-Za-z]/, '').upcase
 	
 	#First check if the participant-usercode pairing exists at all by doing this count for the link between user_code and participant:
 	sql = "select count(*) from user_code u, participant p 
