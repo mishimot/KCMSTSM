@@ -16,9 +16,9 @@ class PagesController < ApplicationController
 	#First check if the participant-usercode pairing exists at all by doing this count for the link between user_code and participant:
 	sql = "select count(*) from user_code u, participant p 
 		where u.participant_id=p.participant_id 
-		and u.code = #{code} 
-		and p.last_name like #{last_name}
-		and p.first_name = #{first_name};"
+		and u.code = '#{code}'
+		and p.last_name like '%#{last_name}%'
+		and p.first_name = '#{first_name}';"
 	x = ActiveRecord::Base.connection.execute(sql)
 	
 	#Next, check if the user already was created. We don’t want duplicate users for the same participant. We do this by counting how many users have that specific participant_id:
@@ -28,9 +28,9 @@ class PagesController < ApplicationController
 		(select participant_id 
 		from user_code u, participant p 
 		where u.participant_id=p.participant_id 
-		and u.code = #{code} 
-		and p.last_name like #{last_name}
-		and p.first_name = #{first_name};)"
+		and u.code = '#{code}' 
+		and p.last_name like '%#{last_name}%'
+		and p.first_name = '#{first_name}';)"
 	y = ActiveRecord::Base.connection.execute(sql2)
 	
 	#Finally, we do a check for these values, which will decide if we insert into the users table.
@@ -38,8 +38,8 @@ class PagesController < ApplicationController
 		password_salt = BCrypt::Engine.generate_salt
 		password_hash = BCrypt::Engine.hash_secret(password,password_salt)
 		sql3 = "insert into users(email, encrypted_password, created_at, updated_at, participant_id)
-			values (#{email}, #{password_hash}, #{Time.now}, #{Time.now},
-			(select p.participant_id from user_code u where code = #{code} '));"
+			values ('#{email}', '#{password_hash}', '#{Time.now}', '#{Time.now}',
+			(select p.participant_id from user_code u where code = '#{code}' '));"
 		ActiveRecord::Base.connection.execute(sql3)
 	end
 	
