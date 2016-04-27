@@ -45,7 +45,7 @@ class PagesController < ApplicationController
 	elsif password != validate_password
 		@message = 'Passwords did not match'
 	else
-		@message = 'Something broke...Contact the admin (x = #{x}, y = #{y})'
+		@message = "Something broke...Contact the admin (x = #{x}, y = #{y})"
 	end
 	
   end
