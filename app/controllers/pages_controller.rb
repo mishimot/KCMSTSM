@@ -33,10 +33,10 @@ class PagesController < ApplicationController
 	y = ActiveRecord::Base.connection.execute(sql2)
 	
 	#Finally, we do a check for these values, which will decide if we insert into the users table.
-	if x == 1 and y == 0 and @password == @validate_password
+	if x == 1 and y == 0 and password == validate_password
 		password_salt = BCrypt::Engine.generate_salt
 		password_hash = BCrypt::Engine.hash_secret(password,password_salt)
-		sql3 = "insert into users(email, encrypted_password, created_at, updated_at, participant_id)
+		sql3 = "insert into users (email, encrypted_password, created_at, updated_at, participant_id)
 			values ('#{email}', '#{password_hash}', '#{Time.now}', '#{Time.now}',
 			(select u.participant_id from user_code u where u.code = '#{code}'));"
 		ActiveRecord::Base.connection.execute(sql3)
