@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 	first_name = params[:first_name].gsub(/[^0-9A-Za-z]/, '').upcase
 	last_name = params[:last_name].gsub(/[^0-9A-Za-z]/, '').upcase
 	email = params[:email].gsub(/[^0-9@-Za-z.]/, '')
-	password = params[:password].gsub(/[^0-9A-Za-z]/, '').upcase
+	password = params[:password].gsub(/[^0-9A-Za-z]/, '')
 	validate_password = params[:validate_password].gsub(/[^0-9A-Za-z]/, '').upcase
 	
 	#First check if the participant-usercode pairing exists at all by doing this count for the link between user_code and participant:
