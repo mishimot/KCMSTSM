@@ -38,7 +38,7 @@ class PagesController < ApplicationController
 		password_hash = BCrypt::Engine.hash_secret(password,password_salt)
 		sql3 = "insert into users(email, encrypted_password, created_at, updated_at, participant_id)
 			values ('#{email}', '#{password_hash}', '#{Time.now}', '#{Time.now}',
-			(select p.participant_id from user_code u where code = '#{code}'));"
+			(select p.participant_id from user_code u where u.code = '#{code}'));"
 		ActiveRecord::Base.connection.execute(sql3)
 	end
 	
