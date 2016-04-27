@@ -34,7 +34,7 @@ class PagesController < ApplicationController
 	y = ActiveRecord::Base.connection.execute(sql2)
 	
 	#Finally, we do a check for these values, which will decide if we insert into the users table.
-	if x.values[0] == 1 and y.values[0] == 0 and password == validate_password
+	if x.values[0][0].to_i == 1 and y.values[0][0].to_i == 0 and password == validate_password
 		password_salt = BCrypt::Engine.generate_salt
 		password_hash = BCrypt::Engine.hash_secret(password,password_salt)
 		sql3 = "insert into users (email, encrypted_password, created_at, updated_at, participant_id)
@@ -45,7 +45,7 @@ class PagesController < ApplicationController
 	elsif password != validate_password
 		@message = 'Passwords did not match'
 	else
-		@message = "Something broke...Contact the admin (x = #{x.values}, y = #{y.values})"
+		@message = "Something broke...Contact the admin (x = #{x.values[0][0]}, y = #{y.values[0][0]})"
 	end
 	
   end
