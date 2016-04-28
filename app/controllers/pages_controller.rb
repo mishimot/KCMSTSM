@@ -5,10 +5,10 @@ class PagesController < ApplicationController
 		where participant_id = (select participant_id from users 
 		where id='#{current_user.id}');"
 	  participant = ActiveRecord::Base.connection.execute(sql).values[0]
-	  @last_name = "#{participant[1].capitalize}"
-	  @first_name = "#{participant[2].capitalize}"
-	  @is_leader = "#{participant[7]}"
-	  @is_admin = "#{participant[8]}"
+	  @last_name = participant[1].capitalize
+	  @first_name = participant[2].capitalize
+	  @is_leader = participant[7]
+	  @is_admin = participant[8]
 	end
   end
   
