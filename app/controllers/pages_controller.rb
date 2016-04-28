@@ -5,7 +5,7 @@ class PagesController < ApplicationController
 		where id=#{current_user.id};"
 	  participant_id = ActiveRecord::Base.connection.execute(sql).values[0][0]
 	  sql2 = "select first_name from participant 
-		where participant_id=#{participant_id};"
+		where participant_id='#{participant_id}';"
 	  @first_name = ActiveRecord::Base.connection.execute(sql2).values[0][0]
 	end
   end
