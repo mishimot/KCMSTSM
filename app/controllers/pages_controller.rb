@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     if user_signed_in?
 	  sql = "select participant from participant 
 		where participant_id = (select participant_id from users 
-		where id='#{current_user.id}');"
+		where id=#{current_user.id});"
 	  participant = ActiveRecord::Base.connection.execute(sql).values[0]
 	  @last_name = participant[1].capitalize
 	  @first_name = participant[1].capitalize
