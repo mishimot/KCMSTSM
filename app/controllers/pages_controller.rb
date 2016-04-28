@@ -6,8 +6,8 @@ class PagesController < ApplicationController
 	participant = ActiveRecord::Base.connection.execute(sql).values[0]
 	@last_name = participant[1].to_s.capitalize
 	@first_name = participant[2].to_s.capitalize
-	@is_leader = participant[7].to_bool
-	@is_admin = participant[8].to_bool
+	@is_leader = participant[7]
+	@is_admin = participant[8]
   end
   
   def signup
