@@ -1,14 +1,12 @@
 class PagesController < ApplicationController
   def home
     if user_signed_in?
-	  sql = "select participant from participant 
-		where participant_id = (select participant_id from users 
-		where id=#{current_user.id});"
-	  participant = ActiveRecord::Base.connection.execute(sql)
-	  @last_name = participant.values[0][1]
-#	  @first_name = participant[1].capitalize
-#	  @is_leader = participant[7]
-#	  @is_admin = participant[8]
+	  sql = "select participant_id from users 
+		where id=#{current_user.id};"
+	  participant_id = ActiveRecord::Base.connection.execute(sql).values[0][0]
+	  sql2 = "select first_name from participant 
+		where participant_id=#{participant_id};"
+	  @first_name = ActiveRecord::Base.connection.execute(sql2).values[0][0]
 	end
   end
   
