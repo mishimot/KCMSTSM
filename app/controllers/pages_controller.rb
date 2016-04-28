@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 		where id='#{current_user.id}');"
 	  participant = ActiveRecord::Base.connection.execute(sql)
 	  @last_name = participant[1].to_s.capitalize
-	  @first_name = participant
+	  @first_name = current_user.id
 	  @is_leader = participant[7]
 	  @is_admin = participant[8]
 	end
