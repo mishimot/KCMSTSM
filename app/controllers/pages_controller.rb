@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   def home
 	sql = "select participant from participant 
 		where participant_id = (select participant_id from users 
-		where participant_id='#{current_user.id}');"
+		where id='#{current_user.id}');"
 	@participant = ActiveRecord::Base.connection.execute(sql).values[0]
   end
   
