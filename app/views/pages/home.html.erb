@@ -3,6 +3,10 @@
 	<p>
 	  <%= render 'devise/sessions/new' %>
 	</p>
-<% @participant[0] %>	
+<% else %>
+	<h1><% @first_name %>'s Finances</h1><br>
+	<p>
+	  There should be a table here....code monkeys are working on it!
+	</p>
 <% end %>
 
