@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    if !user_signed_in?
+    if user_signed_in?
 	  sql = "select participant from participant 
 		where participant_id = (select participant_id from users 
 		where id='#{current_user.id}');"
