@@ -21,7 +21,7 @@ class PagesController < ApplicationController
 		sql3 = "select d from donation d 
 		  inner join participant p 
 		  on p.participant_id=d.participant_id
-		  where p.team_id='1';
+		  where p.team_id='#{participant[6]}';"
 	  else
 		sql3 = "select * from donation
 		  where participant_id='#{participant_id}';"
