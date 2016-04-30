@@ -1,12 +1,31 @@
 class PagesController < ApplicationController
   def home
     if user_signed_in?
+	  #saves the participant id for all later sql commands
 	  sql = "select participant_id from users 
 		where id=#{current_user.id};"
 	  participant_id = ActiveRecord::Base.connection.execute(sql).values[0][0]
-	  sql2 = "select first_name from participant 
+	  #Grabs the participant
+	  sql2 = "select participant from participant 
 		where participant_id='#{participant_id}';"
-	  @first_name = ActiveRecord::Base.connection.execute(sql2).values[0][0].capitalize
+	  participant = ActiveRecord::Base.connection.execute(sql2).values[0][0].split(',')
+	  @participant_name = participant[2].capitalize + " " + participant[1].capitalize
+	  @is_leader = participant[7]
+	  @is_admin = participant[8]
+	  
+	  #Grabs their donations
+	  sql3 = ""
+	  if @is_admin
+	    sql3 = "select * from donation;"
+	  elsif @is_leader
+		sql3 = "select d from donation d 
+		  inner join participant p 
+		  on p.participant_id=d.participant_id
+		  where p.team_id='1';
+	  else
+		sql3 = "select * from donation
+		  where participant_id='#{participant_id}';"
+	  end
 	end
   end
   
