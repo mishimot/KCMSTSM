@@ -30,11 +30,8 @@ class PagesController < ApplicationController
 	  @donations = ActiveRecord::Base.connection.execute(sql3).values[0]
 
 	  #Auto complete testing
-	  respond_to do |format|
-		format.html
-		format.json { @participant_search = ActiveRecord::Base.connection.execute("select * from participants 
-		  where first_name like UPPER('%#{params[:term]}%') or last_name like UPPER('%#{params[:term]}%');") }
-	  end
+	  render json: ActiveRecord::Base.connection.execute("select * from participants 
+		  where first_name like UPPER('%#{params[:term]}%') or last_name like UPPER('%#{params[:term]}%');")
 	end
   end
   
