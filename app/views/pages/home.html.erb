@@ -4,17 +4,17 @@
 	  <%= render 'devise/sessions/new' %>
 	</p>
 <% elsif @is_admin %>
-<h1>Listing All Finances</h1><br>
-<div class="participant-search">
-  <input type="text" id="participant-search-txt" autofocus>
-  <div class="results" id="participant-search-results"></div>
-</div>
+	<h1>Listing All Finances</h1><br>
+<% elsif @is_leader %>
+	<h1>Listing Team Finances</h1><br>
 <% else %>
 	<h1><%= @participant_name %>'s Finances</h1><br>
-	<p>
-	  There should be a table here....code monkeys are working on it!
-	</p>
 <% end %>
+
+<p>
+	There should be a table here....code monkeys are working on it!
+	<%= render 'pages/donationtable' %>
+</p>
 
 <footer>
 	
