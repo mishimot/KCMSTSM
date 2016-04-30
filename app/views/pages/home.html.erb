@@ -3,6 +3,12 @@
 	<p>
 	  <%= render 'devise/sessions/new' %>
 	</p>
+<% elsif @is_admin %>
+<h1>Listing All Finances</h1><br>
+<div class="participant-search">
+  <input type="text" id="participant-search-txt" autofocus>
+  <div class="results" id="participant-search-results"></div>
+</div>
 <% else %>
 	<h1><%= @participant_name %>'s Finances</h1><br>
 	<p>
