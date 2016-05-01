@@ -23,7 +23,7 @@
 			<input list="participant_names" name="participant_names">
 			<datalist id="participant_names">
 			<% @participants.each do |p| %>
-			  <option value="#{p["first_name"]}" + " " + "#{p["last_name"]}">
+			  <option value=(#{p["first_name"]} + " " + #{p["last_name"]})>
 			<% end %>
 			</datalist>
 			</td>
