@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 		where participant_id='#{participant_id}';"
 	  participant = ActiveRecord::Base.connection.execute(sql2).values[0][0].split(',')
 	  @participant_name = participant[2].capitalize + " " + participant[1].capitalize
-	  @participant_initials = participant[2][0] + participant[1][0]
+	  @participant_initials = participant[2][0].to_s + participant[1][0].to_s
 	  @is_leader = participant[7]
 	  @is_admin = participant[8]
 	  
@@ -46,6 +46,7 @@ class PagesController < ApplicationController
 			(last_name, first_name, donation_value, is_check, check_number, participant_id)
 			values('#{donor_last_name}', '#{donor_first_name}', '#{donation_value}', '#{is_check}', '#{check_number}',
 			'#{participant_id2}');")
+		  redirect_to root_path
 		end
 	end
   end
