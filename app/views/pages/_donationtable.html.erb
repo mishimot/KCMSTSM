@@ -17,7 +17,7 @@
 	  <tr>
 	    <td><%= d.["first_name"].split.map(&:capitalize).join(' ') %></td>
 	    <td><%= d.["last_name"].split.map(&:capitalize).join(' ') %></td>
-	    <td><%= d.["d"]["first_name"] %></td>
+	    <td><%= d.["d"] %></td>
 	    <td><strong>Amount</strong></td>
 	    <% if @is_admin %>
 	      <td><strong>Check?</strong></td>
