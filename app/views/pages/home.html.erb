@@ -17,14 +17,14 @@
     </tr>
 	<tr>
 	  <%= form_tag root_path do %>
-	    <td><%= hidden_field_tag :date, Date.today  %></td>
+	    <%= hidden_field_tag :date, Date.today  %>
         <td><%= text_field_tag(:participant_name) %></td>
         <td><%= text_field_tag(:donor_first_name) %></td>
         <td><%= text_field_tag(:donor_last_name) %></td>
-	    <td><%= text_field_tag(:donation_value) %></td>
+	    <td><%= text_field_tag(:donation_value), :class => "span1" %></td>
 	    <td><%= check_box_tag(:is_check) %></td>
-	    <td><%= text_field_tag(:check_number) %></td>
-	    <td><%= hidden_field_tag :recorder, @participant_initials  %></td>
+	    <td><%= text_field_tag(:check_number), :class => "span1" %></td>
+	    <%= hidden_field_tag :recorder, @participant_initials  %>
         <td><%= submit_tag("Submit") %></td>
       <% end %>
 	</tr>
