@@ -30,7 +30,8 @@ class PagesController < ApplicationController
 		  where participant_id='#{participant[6]}';"
 	  end
 	  
-	  @donation_info = ActiveRecord::Base.connection.execute(sql3)
+	  @donations = ActiveRecord::Base.connection.execute(sql3)
+	  @donation_info = nil
 	  #Saving donations
 	  if @is_admin and request.post?
 		  participant_name = params[:participant_name].split(',')

@@ -13,15 +13,17 @@
 	  <td><strong>Delete</strong></td>
 	  <% end %>
     </tr>
-	<% if @donation_info != nil %>
-		<% @donation_info.each do |d| %>
+	<% if @donations != nil %>
+		<% @donations.each do |d| %>
 		  <tr>
 			<td><%= d["first_name"].split.map(&:capitalize).join(' ') %></td>
 			<td><%= d["last_name"].split.map(&:capitalize).join(' ') %></td>
-			<td><%= d["d"]["first_name"] + " " + d["d"]["last_name"] %></td>
-			<td><%= d["d"]["donation_value"] %></td>
-			<td><%= d["d"]["check_number"] %></td>
-			<td><%= d["d"]["recorder"] %></td>
+			
+			<%= @donation_info = d["d"].split(',') %>
+			<td><%= @donation_info[2] + " " + @donation_info[1] %></td>
+			<td><%= @donation_info[4] %></td>
+			<td><%= @donation_info[6] %></td>
+			<td><%= @donation_info[7] %></td>
 			<% if @is_admin %>
 			  <td><strong>Audit</strong></td>
 			  <td><strong>Audit Date</strong></td>
