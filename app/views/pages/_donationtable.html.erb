@@ -4,9 +4,9 @@
 	  <td><strong>Last Name</strong></td>
 	  <td><strong>Supporter Name</strong></td>
 	  <td><strong>Amount</strong></td>
+	  <td><strong>Check Number</strong></td>
+	  <td><strong>Data Entry</strong></td>
 	  <% if @is_admin %>
-	  <td><strong>Check?</strong></td>
-	  <td><strong>Check Amount</strong></td>
 	  <td><strong>Audit</strong></td>
 	  <td><strong>Audit Date</strong></td>
 	  <td><strong>Edit</strong></td>
@@ -18,12 +18,13 @@
 		  <tr>
 			<td><%= d["first_name"].split.map(&:capitalize).join(' ') %></td>
 			<td><%= d["last_name"].split.map(&:capitalize).join(' ') %></td>
-			<td><%= d["d"] %></td>
-			<td><strong>Amount</strong></td>
+			<td><%= d["d"]["first_name"] + " " + d["d"]["last_name"] %></td>
+			<td><%= d["d"]["donation_value"] %></td>
+			<td><%= d["d"]["check_number"] %></td>
+			<td><%= d["d"]["recorder"] %></td>
 			<% if @is_admin %>
-			  <td><strong>Check?</strong></td>
-			  <td><strong>Check Amount</strong></td>
 			  <td><strong>Audit</strong></td>
+			  <td><strong>Audit Date</strong></td>
 			  <td><strong>Edit</strong></td>
 			  <td><strong>Delete</strong></td>
 			<% end %>
