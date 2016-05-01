@@ -45,7 +45,7 @@ class PagesController < ApplicationController
 		  ActiveRecord::Base.connection.execute("insert into donation
 			(last_name, first_name, donation_value, is_check, check_number, recorder, participant_id)
 			values('#{donor_last_name}', '#{donor_first_name}', 
-			'#{donation_value}', '#{is_check}', '#{check_number}', 
+			#{donation_value}, #{is_check}, #{check_number}, 
 			'#{recorder}', '#{participant_id2}');")
 		  redirect_to root_path
 		end
