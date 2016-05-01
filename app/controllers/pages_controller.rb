@@ -44,7 +44,7 @@ class PagesController < ApplicationController
 		  ActiveRecord::Base.connection.execute("insert into donation
 			(last_name, first_name, donation_value, is_check, check_number, participant_id)
 			values('#{donor_last_name}', '#{donor_first_name}', '#{donation_value}', '#{check_number}',
-			'#{participant_id2}'")
+			'#{participant_id2}');")
 		end
 	end
   end
