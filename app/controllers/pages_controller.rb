@@ -44,7 +44,7 @@ class PagesController < ApplicationController
 	  #Auto complete testing
 	  #render json: ActiveRecord::Base.connection.execute("select * from participant 
 	  #	  where first_name like UPPER('%#{params[:term]}%') or last_name like UPPER('%#{params[:term]}%');")
-	  end
+	    end
 	end
   end
   
