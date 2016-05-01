@@ -38,7 +38,9 @@
 		  <% end %>
 		</tr>
 	  </table>
-	<%= @participants %>
+	<% @participants.each do |p| %>
+	  <%= p %>
+	<% end %>
 	<% elsif @is_leader %>
 		<h1>Listing Team Finances</h1><br>
 	<% else %>
