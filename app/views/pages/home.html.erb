@@ -19,7 +19,7 @@
 		<tr>
 		  <%= form_tag root_path do %>
 			<td>
-			<input list="participant_name" name="participant_name">
+			<input list="participant_name" name="participant_name" autocomplete="off">
 			<datalist id="participant_name">
 			<% @participants.each do |p| %>
 			  <option value="<%= p["first_name"] + " " + p["last_name"] + ", " + p["participant_id"] %>">
