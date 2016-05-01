@@ -39,7 +39,7 @@
 		</tr>
 	  </table>
 	<% @participants.each do |p| %>
-	  <%= p %>
+	  <%= p["first_name"] p["last_name"]  %>
 	<% end %>
 	<% elsif @is_leader %>
 		<h1>Listing Team Finances</h1><br>
