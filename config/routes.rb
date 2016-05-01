@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "teammanagement" => "pages#teammanagement"
   get "teamtotals" => "pages#teamtotals"
   post "registered" => "pages#registered"
+  post "home" => "pages#home"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

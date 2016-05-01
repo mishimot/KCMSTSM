@@ -10,6 +10,7 @@ class PagesController < ApplicationController
 		where participant_id='#{participant_id}';"
 	  participant = ActiveRecord::Base.connection.execute(sql2).values[0][0].split(',')
 	  @participant_name = participant[2].capitalize + " " + participant[1].capitalize
+	  @participant_initials = participant[2].capitalize[0] + " " + participant[1].capitalize[0]
 	  @is_leader = participant[7]
 	  @is_admin = participant[8]
 	  
