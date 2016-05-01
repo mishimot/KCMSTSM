@@ -19,7 +19,6 @@ class PagesController < ApplicationController
 	  if @is_admin
 		sql3 = "select * from donation;"
 		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
-	  
 	  elsif @is_leader
 		sql3 = "select d from donation d 
 		  inner join participant p 
@@ -30,19 +29,21 @@ class PagesController < ApplicationController
 		  where participant_id='#{participant_id}';"
 	  end
 	  
-	  @donations = ActiveRecord::Base.connection.execute(sql3).values[0]
+	  @donations = ActiveRecord::Base.connection.execute(sql3)
 	  #Saving donations
-	  if request.post?
-		  date = params[:date]
+	  if @is_admin and request.post?
 		  participant_name = params[:participant_name].split(',')
 		  participant_id2 = participant_name[1]
 		  donor_first_name = params[:donor_first_name].upcase
 		  donor_last_name = params[:donor_last_name].upcase
 		  donation_value = params[:donation_value]
-		  is_check = params[:is_check]
+		  is_check = params[:is_check] == '1' ? true : false
 		  check_number = params[:check_number]
 		  recorder = params[:recorder]
-		  
+		  ActiveRecord::Base.connection.execute("insert into donation
+			(last_name, first_name, donation_value, is_check, check_number, participant_id)
+			values('#{donor_last_name}', '#{donor_first_name}', '#{donation_value}', '#{check_number}',
+			'#{participant_id2}'")
 		end
 	end
   end
