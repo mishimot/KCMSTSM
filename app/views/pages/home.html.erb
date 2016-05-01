@@ -19,7 +19,7 @@
 		<tr>
 		  <%= form_tag root_path do %>
 			<%= hidden_field_tag :date, Date.today  %>
-			<td><%= text_field_tag(:participant_name) %></td>
+			<td><%= text_field_tag(:participant_name, data: ["test", "test2"]) %></td>
 			<td><%= text_field_tag(:donor_first_name) %></td>
 			<td><%= text_field_tag(:donor_last_name) %></td>
 			<td><%= text_field_tag(:donation_value) %></td>
