@@ -18,7 +18,7 @@ class PagesController < ApplicationController
 	  sql3 = ""
 	  if @is_admin
 		sql3 = "select * from donation;"
-		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name from participant where is_active = true").values
+		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name from participant where is_active = true").values[0]
 	  
 	  elsif @is_leader
 		sql3 = "select d from donation d 
