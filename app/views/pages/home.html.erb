@@ -23,11 +23,10 @@
 			<input list="participant_names" name="participant_names">
 			<datalist id="participant_names">
 			<% @participants.each do |p| %>
-			  <option value="<%= p["first_name"] + " " + p["last_name"] %>">
+			  <option value="<%= p["first_name"] + " " + p["last_name"] + ", " + p["participant_id"] %>">
 			<% end %>
 			</datalist>
 			</td>
-			
 			<td><%= text_field_tag(:donor_first_name) %></td>
 			<td><%= text_field_tag(:donor_last_name) %></td>
 			<td><%= text_field_tag(:donation_value) %></td>

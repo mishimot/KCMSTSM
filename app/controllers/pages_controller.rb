@@ -18,7 +18,7 @@ class PagesController < ApplicationController
 	  sql3 = ""
 	  if @is_admin
 		sql3 = "select * from donation;"
-		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name from participant where is_active = true")
+		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
 	  
 	  elsif @is_leader
 		sql3 = "select d from donation d 
@@ -34,13 +34,15 @@ class PagesController < ApplicationController
 	  #Saving donations
 	  if request.post?
 		  date = params[:date]
-		  participant_name = params[:participant_name]
-		  donor_first_name = params[:donor_first_name]
-		  donor_last_name = params[:donor_last_name]
+		  participant_name = params[:participant_name].split(',')
+		  participant_id2 = participant_name[1]
+		  donor_first_name = params[:donor_first_name].upcase
+		  donor_last_name = params[:donor_last_name].upcase
 		  donation_value = params[:donation_value]
 		  is_check = params[:is_check]
 		  check_number = params[:check_number]
 		  recorder = params[:recorder]
+		  
 		end
 	end
   end
