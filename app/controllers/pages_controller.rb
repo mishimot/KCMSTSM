@@ -1,39 +1,50 @@
 class PagesController < ApplicationController
   def home
     if user_signed_in?
-	  #saves the participant id for all later sql commands
-	  sql = "select participant_id from users 
-		where id=#{current_user.id};"
-	  participant_id = ActiveRecord::Base.connection.execute(sql).values[0][0]
-	  #Grabs the participant
-	  sql2 = "select participant from participant 
-		where participant_id='#{participant_id}';"
-	  participant = ActiveRecord::Base.connection.execute(sql2).values[0][0].split(',')
-	  @participant_name = participant[2].capitalize + " " + participant[1].capitalize
-	  @participant_initials = participant[2].capitalize[0] + " " + participant[1].capitalize[0]
-	  @is_leader = participant[7]
-	  @is_admin = participant[8]
-	  
-	  #Grabs their donations
-	  sql3 = ""
-	  if @is_admin
-	    sql3 = "select * from donation;"
-	  elsif @is_leader
-		sql3 = "select d from donation d 
-		  inner join participant p 
-		  on p.participant_id=d.participant_id
-		  where p.team_id='#{participant[6]}';"
-	  else
-		sql3 = "select * from donation
-		  where participant_id='#{participant_id}';"
-	  end
-	  
-	  @donations = ActiveRecord::Base.connection.execute(sql3).values[0]
+	  if request.get?
+		  #saves the participant id for all later sql commands
+		  sql = "select participant_id from users 
+			where id=#{current_user.id};"
+		  participant_id = ActiveRecord::Base.connection.execute(sql).values[0][0]
+		  #Grabs the participant
+		  sql2 = "select participant from participant 
+			where participant_id='#{participant_id}';"
+		  participant = ActiveRecord::Base.connection.execute(sql2).values[0][0].split(',')
+		  @participant_name = participant[2].capitalize + " " + participant[1].capitalize
+		  @participant_initials = participant[2].capitalize[0] + " " + participant[1].capitalize[0]
+		  @is_leader = participant[7]
+		  @is_admin = participant[8]
+		  
+		  #Grabs their donations
+		  sql3 = ""
+		  if @is_admin
+			sql3 = "select * from donation;"
+		  elsif @is_leader
+			sql3 = "select d from donation d 
+			  inner join participant p 
+			  on p.participant_id=d.participant_id
+			  where p.team_id='#{participant[6]}';"
+		  else
+			sql3 = "select * from donation
+			  where participant_id='#{participant_id}';"
+		  end
+		  
+		  @donations = ActiveRecord::Base.connection.execute(sql3).values[0]
 
+	  #Saving donations
+	  elsif request.post?
+		  date = params[:date]
+		  participant_name = params[:participant_name]
+		  donor_first_name = params[:donor_first_name]
+		  donor_last_name = params[:donor_last_name]
+		  donation_value = params[:donation_value]
+		  is_check = params[:is_check]
+		  check_number = params[:check_number]
+		  recorder = params[:recorder]
 	  #Auto complete testing
 	  #render json: ActiveRecord::Base.connection.execute("select * from participant 
 	  #	  where first_name like UPPER('%#{params[:term]}%') or last_name like UPPER('%#{params[:term]}%');")
-	end
+	  end
   end
   
   def signup
