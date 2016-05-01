@@ -42,9 +42,11 @@ class PagesController < ApplicationController
 		  check_number = params[:check_number]
 		  recorder = params[:recorder]
 	  #Auto complete testing
-	  #render json: ActiveRecord::Base.connection.execute("select * from participant 
-	  #	  where first_name like UPPER('%#{params[:term]}%') or last_name like UPPER('%#{params[:term]}%');")
-	    end
+		  respond_to do |format|
+		    render json: ActiveRecord::Base.connection.execute("select * from participant 
+	  	       where first_name like UPPER('%#{params[:term]}%') or last_name like UPPER('%#{params[:term]}%');")
+		  end
+		end
 	end
   end
   
