@@ -43,9 +43,10 @@ class PagesController < ApplicationController
 		  check_number = params[:check_number]
 		  recorder = params[:recorder]
 		  ActiveRecord::Base.connection.execute("insert into donation
-			(last_name, first_name, donation_value, is_check, check_number, participant_id)
-			values('#{donor_last_name}', '#{donor_first_name}', '#{donation_value}', '#{is_check}', '#{check_number}',
-			'#{participant_id2}');")
+			(last_name, first_name, donation_value, is_check, check_number, recorder, participant_id)
+			values('#{donor_last_name}', '#{donor_first_name}', 
+			'#{donation_value}', '#{is_check}', '#{check_number}', 
+			'#{recorder}', '#{participant_id2}');")
 		  redirect_to root_path
 		end
 	end
