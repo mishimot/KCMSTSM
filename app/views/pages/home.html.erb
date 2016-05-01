@@ -4,33 +4,33 @@
 	  <%= render 'devise/sessions/new' %>
 	</p>
 <% elsif @is_admin %>
-	<h1>Listing All Finances</h1><br>
-	<table class = "table table-striped table-bordered" style="width:60%" >
+  <h1>Listing All Finances</h1><br>
+  <table class = "table table-striped table-bordered" style="width:60%" >
 	<tr class ="info">
       <td><strong>Name</strong></td>
-      <td><strong>Supporter Name</strong></td>
-      <td><strong>Cash Amount</strong></td>
-      <td><strong>Check Amount</strong></td>
+      <td><strong>Supporter First Name</strong></td>
+	  <td><strong>Supporter Last Name</strong></td>
+      <td><strong>Amount</strong></td>
+      <td><strong>Check?</strong></td>
 	  <td><strong>Check Number</strong></td>
-	  <td><strong>Notes</strong></td>
-	  <td><strong>Audit</strong></td>
 	  <td><strong>Submit</strong></td>
     </tr>
 	<tr>
-	<%= form_tag root_path do %>
-	  <%= hidden_field_tag :date, Date.today  %>
-      <%= text_field_tag(:participant_name) %>
-      <%= text_field_tag(:donor_first_name) %>
-      <%= text_field_tag(:donor_last_name) %>
-	  <%= text_field_tag(:donation_value) %>
-	  <%= check_box_tag(:is_check) %>
-	  <%= text_field_tag(:check_number) %>
-	  <%= hidden_field_tag :recorder, @participant_initials  %>
-      <%= submit_tag("Submit") %>
-    <% end %>
+	  <%= form_tag root_path do %>
+	    <td><%= hidden_field_tag :date, Date.today  %></td>
+        <td><%= text_field_tag(:participant_name) %></td>
+        <td><%= text_field_tag(:donor_first_name) %></td>
+        <td><%= text_field_tag(:donor_last_name) %></td>
+	    <td><%= text_field_tag(:donation_value) %></td>
+	    <td><%= check_box_tag(:is_check) %></td>
+	    <td><%= text_field_tag(:check_number) %></td>
+	    <td><%= hidden_field_tag :recorder, @participant_initials  %></td>
+        <td><%= submit_tag("Submit") %></td>
+      <% end %>
 	</tr>
-	<%= form_tag registered_path do %>
-	<% end %>
+	  <%= form_tag registered_path do %>
+	  <% end %>
+  </table>
 <% elsif @is_leader %>
 	<h1>Listing Team Finances</h1><br>
 <% else %>
