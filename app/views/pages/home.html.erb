@@ -23,7 +23,7 @@
 			<input list="participant_names" name="participant_names">
 			<datalist id="participant_names">
 			<% @participants.each do |p| %>
-			  <option value="#{p.split(",")[0]}" + " " + "#{p.split(",")[1]}">
+			  <option value="#{p["first_name"]}" + " " + "#{p["last_name"]}">
 			<% end %>
 			</datalist>
 			</td>
@@ -38,9 +38,6 @@
 		  <% end %>
 		</tr>
 	  </table>
-	<% @participants.each do |p| %>
-	  <%= p["first_name"] + p["last_name"]  %>
-	<% end %>
 	<% elsif @is_leader %>
 		<h1>Listing Team Finances</h1><br>
 	<% else %>
