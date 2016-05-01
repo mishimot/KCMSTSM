@@ -17,19 +17,20 @@ class PagesController < ApplicationController
 	  #Grabs their donations
 	  sql3 = ""
 	  if @is_admin
-		sql3 = "select * from donation;"
+		sql3 = "select d, p.first_name, p.last_name from participant p
+		  inner join donation d on d.participant_id=p.participant_id;"
 		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
 	  elsif @is_leader
-		sql3 = "select d from donation d 
-		  inner join participant p 
-		  on p.participant_id=d.participant_id
-		  where p.team_id='#{participant[6]}';"
+		sql3 = "select d, p.first_name, p.last_name from participant p
+		  inner join donation d on d.participant_id=p.participant_id
+		  where p.team_id='#{participant_id}';"
 	  else
-		sql3 = "select * from donation
-		  where participant_id='#{participant_id}';"
+		sql3 = "select d, p.first_name, p.last_name from participant p
+		  inner join donation d on d.participant_id=p.participant_id
+		  where participant_id='#{participant[6]}';"
 	  end
 	  
-	  @donations = ActiveRecord::Base.connection.execute(sql3)
+	  @donation_info = ActiveRecord::Base.connection.execute(sql3)
 	  #Saving donations
 	  if @is_admin and request.post?
 		  participant_name = params[:participant_name].split(',')

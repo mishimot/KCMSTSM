@@ -2,7 +2,6 @@
     <tr class ="info">
       <td><strong>First Name</strong></td>
 	  <td><strong>Last Name</strong></td>
-      <td><strong>Team</strong></td>
 	  <td><strong>Supporter Name</strong></td>
 	  <td><strong>Amount</strong></td>
 	  <% if @is_admin %>
@@ -16,10 +15,9 @@
     </tr>
 	<% @donations.each do |d| %>
 	  <tr>
-	    <td><strong>First Name</strong></td>
-	    <td><strong>First Name</strong></td>
-        <td><strong>First Name</strong></td>
-	    <td><strong>Supporter Name</strong></td>
+	    <td><%= d.["first_name"].split.map(&:capitalize).join(' ') %></td>
+	    <td><%= d.["last_name"].split.map(&:capitalize).join(' ') %></td>
+	    <td><%= d.["d"]["first_name"] %></td>
 	    <td><strong>Amount</strong></td>
 	    <% if @is_admin %>
 	      <td><strong>Check?</strong></td>
