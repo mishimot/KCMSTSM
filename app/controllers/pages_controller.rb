@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     if user_signed_in?
 	  #saves the participant id for all later sql commands
 	  sql = "select participant_id from users 
-		where id=#{current_user.id};"
+		where id='#{current_user.id}';"
 	  participant_id = ActiveRecord::Base.connection.execute(sql)
 	  #Grabs the participant
 	  sql2 = "select participant from participant 
