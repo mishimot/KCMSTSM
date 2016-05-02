@@ -4,34 +4,32 @@ class PagesController < ApplicationController
 	  #saves the participant id for all later sql commands
 	  sql = "select participant_id from users 
 		where id=#{current_user.id};"
-	  participant_id = ActiveRecord::Base.connection.execute(sql).values[0][0]
+	  participant_id = ActiveRecord::Base.connection.execute(sql)
 	  #Grabs the participant
 	  sql2 = "select participant from participant 
 		where participant_id='#{participant_id}';"
-	  participant = ActiveRecord::Base.connection.execute(sql2).values[0][0].split(',')
-	  @participant_name = participant[2].capitalize + " " + participant[1].capitalize
-	  @participant_initials = participant[2][0].to_s + participant[1][0].to_s
-	  @is_leader = participant[7]
-	  @is_admin = participant[8]
+	  participant = ActiveRecord::Base.connection.execute(sql2)
+	  @participant_name = participant["first_name"].capitalize + " " + participant["last_name"].capitalize
+	  @participant_initials = participant["first_name"][0].to_s + participant["last_name"][0].to_s
+	  @is_leader = participant["is_leader"]
+	  @is_admin = participant["is_admin"]
 	  
 	  #Grabs their donations
 	  sql3 = ""
 	  if @is_admin
-		sql3 = "select d, p.first_name, p.last_name from participant p
-		  inner join donation d on d.participant_id=p.participant_id;"
+		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
+		  inner join donation d on d.participant_id=p.participant_id;")
 		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
 	  elsif @is_leader
-		sql3 = "select d, p.first_name, p.last_name from participant p
+		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where p.team_id='#{participant_id}';"
+		  where p.team_id='#{participant["team_id"]}';")
 	  else
-		sql3 = "select d, p.first_name, p.last_name from participant p
+		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where participant_id='#{participant[6]}';"
+		  where p.participant_id='#{participant_id["participant_id"]}';")
 	  end
 	  
-	  @donations = ActiveRecord::Base.connection.execute(sql3)
-	  @donation_info = nil
 	  #Saving donations
 	  if @is_admin and request.post?
 		  participant_name = params[:participant_name].split(',')

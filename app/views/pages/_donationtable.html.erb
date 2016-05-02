@@ -16,22 +16,19 @@
 	<% if @donations != nil %>
 		<% @donations.each do |d| %>
 		  <tr>
-			<td><%= d["first_name"].split.map(&:capitalize).join(' ') %></td>
-			<td><%= d["last_name"].split.map(&:capitalize).join(' ') %></td>
-			
-			<% @donation_info = d["d"].split(',') %>
-			<td><%= @donation_info[2].gsub(", '') + " " + @donation_info[1].gsub(", '') %></td>
-			<td><%= @donation_info[4] %></td>
-			<td><%= @donation_info[6] %></td>
-			<td><%= @donation_info[7][0...2] %></td>
+			<td><%= d["participant_first_name"].split.map(&:capitalize).join(' ') %></td>
+			<td><%= d["participant_last_name"].split.map(&:capitalize).join(' ') %></td>
+			<td><%= d["first_name"].split.map(&:capitalize).join(' ') + " " + d["last_name"].split.map(&:capitalize).join(' ') %></td>
+			<td><%= d["donation_value"] %></td>
+			<td><%= d["check_number"] %></td>
+			<td><%= d["recorder"] %></td>
 			<% if @is_admin %>
 			  <td><strong>Audit</strong></td>
 			  <td><strong>Audit Date</strong></td>
 			  <td><strong>Edit</strong></td>
 			  <td>
 				<%= form_tag deletedonation_path do %>
-					<% @donation_info[0].slice!(0) %>
-					<%= hidden_field_tag :donation, @donation_info[0] %>
+					<%= hidden_field_tag :donation, d["donation_id"] %>
 					<%= submit_tag("Delete") %><div>
 				<% end %>
 			  </td>
