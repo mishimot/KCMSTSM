@@ -7,7 +7,7 @@ class PagesController < ApplicationController
 	  participant_id = ActiveRecord::Base.connection.execute(sql)
 	  #Grabs the participant
 	  sql2 = "select participant from participant 
-		where participant_id='#{participant_id}';"
+		where participant_id='#{participant_id["participant_id"]}';"
 	  participant = ActiveRecord::Base.connection.execute(sql2)
 	  @participant_name = participant["first_name"].capitalize + " " + participant["last_name"].capitalize
 	  @participant_initials = participant["first_name"][0].to_s + participant["last_name"][0].to_s
