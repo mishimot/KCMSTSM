@@ -107,6 +107,12 @@ class PagesController < ApplicationController
 	end
 	
   end
+  
+  def delete_donation
+	donation_id = params[:donation]
+	ActiveRecord::Base.connection.execute("delete from donation where donation_id=#{donation}")
+	@message = 'Donation Deleted!'
+  end
 
   def leaderlookup
   end
