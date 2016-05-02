@@ -27,7 +27,7 @@ class PagesController < ApplicationController
 	  else
 		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where p.participant_id='#{participant_id["participant_id"]}';")
+		  where p.participant_id=#{participant_id["participant_id"]};")
 	  end
 	  
 	  #Saving donations
