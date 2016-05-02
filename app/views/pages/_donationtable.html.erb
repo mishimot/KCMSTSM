@@ -29,7 +29,7 @@
 			  <td><strong>Audit Date</strong></td>
 			  <td><strong>Edit</strong></td>
 			  <td>
-				<%= form_tag delete_donation_path do %>
+				<%= form_tag deletedonation_path do %>
 					<%= hidden_field_tag :donation, @donation_info[0].shift(0)  %>
 					<%= submit_tag("Delete") %><div>
 				<% end %>
