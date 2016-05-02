@@ -11,16 +11,16 @@ class PagesController < ApplicationController
 	  participant = ActiveRecord::Base.connection.execute(sql2)
 	  @participant_name = participant[0]["first_name"].capitalize + " " + participant[0]["last_name"].capitalize
 	  @participant_initials = participant[0]["first_name"] + participant[0]["last_name"]
-	  @is_leader = participant[0]["is_leader"]
-	  @is_admin = participant[0]["is_admin"]
+	  @is_leader = (participant[0]["is_leader"] == 't' ? true : false)
+	  @is_admin = (participant[0]["is_admin"] == '1' ? true : false)
 	  
 	  #Grabs their donations
 	  sql3 = ""
-	  if @is_admin
+	  if @is_admin == 't'
 		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id;")
 		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
-	  elsif @is_leader
+	  elsif @is_leader == 't'
 		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
 		  where p.team_id='#{participant[0]["team_id"]}';")
@@ -31,7 +31,7 @@ class PagesController < ApplicationController
 	  end
 	  
 	  #Saving donations
-	  if @is_admin and request.post?
+	  if @is_admin == 't' and request.post?
 		  participant_name = params[:participant_name].split(',')
 		  participant_id2 = participant_name[1]
 		  donor_first_name = params[:donor_first_name].upcase
