@@ -12,10 +12,9 @@ class PagesController < ApplicationController
 	  @participant_name = participant[0]["first_name"].capitalize + " " + participant[0]["last_name"].capitalize
 	  @participant_initials = participant[0]["first_name"] + participant[0]["last_name"]
 	  @is_leader = (participant[0]["is_leader"] == 't' ? true : false)
-	  @is_admin = (participant[0]["is_admin"] == '1' ? true : false)
+	  @is_admin = (participant[0]["is_admin"] == 't' ? true : false)
 	  
 	  #Grabs their donations
-	  sql3 = ""
 	  if @is_admin
 		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id;")
