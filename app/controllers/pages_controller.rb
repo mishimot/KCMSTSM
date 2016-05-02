@@ -7,12 +7,12 @@ class PagesController < ApplicationController
 	  participant_id = ActiveRecord::Base.connection.execute(sql)
 	  #Grabs the participant
 	  sql2 = "select participant from participant 
-		where participant_id='#{participant_id["participant_id"]}';"
+		where participant_id='#{participant_id[0]["participant_id"]}';"
 	  participant = ActiveRecord::Base.connection.execute(sql2)
-	  @participant_name = participant["first_name"].capitalize + " " + participant["last_name"].capitalize
-	  @participant_initials = participant["first_name"].to_s + participant["last_name"].to_s
-	  @is_leader = participant["is_leader"]
-	  @is_admin = participant["is_admin"]
+	  @participant_name = participant["first_name"][0].capitalize + " " + participant[0]["last_name"].capitalize
+	  @participant_initials = participant[0]["first_name"].to_s + participant[0]["last_name"].to_s
+	  @is_leader = participant[0]["is_leader"]
+	  @is_admin = participant[0]["is_admin"]
 	  
 	  #Grabs their donations
 	  sql3 = ""
@@ -23,11 +23,11 @@ class PagesController < ApplicationController
 	  elsif @is_leader
 		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where p.team_id='#{participant["team_id"]}';")
+		  where p.team_id='#{participant[0]["team_id"]}';")
 	  else
 		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where p.participant_id=#{participant_id["participant_id"]};")
+		  where p.participant_id='#{participant_id[0]["participant_id"]}';")
 	  end
 	  
 	  #Saving donations
