@@ -20,7 +20,7 @@
 			<td><%= d["last_name"].split.map(&:capitalize).join(' ') %></td>
 			
 			<% @donation_info = d["d"].split(',') %>
-			<td><%= @donation_info[2] + " " + @donation_info[1] %></td>
+			<td><%= @donation_info[2].gsub(", '') + " " + @donation_info[1].gsub(", '') %></td>
 			<td><%= @donation_info[4] %></td>
 			<td><%= @donation_info[6] %></td>
 			<td><%= @donation_info[7][0...2] %></td>
