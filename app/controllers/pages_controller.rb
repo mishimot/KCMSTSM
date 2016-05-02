@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 		where id=#{current_user.id};"
 	  participant_id = ActiveRecord::Base.connection.execute(sql)
 	  #Grabs the participant
-	  sql2 = "select participant from participant 
+	  sql2 = "select participant.* from participant 
 		where participant_id=#{participant_id[0]["participant_id"]};"
 	  participant = ActiveRecord::Base.connection.execute(sql2)
 	  @participant_name = participant[0]["first_name"].capitalize + " " + participant[0]["last_name"].capitalize
