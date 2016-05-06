@@ -1,19 +1,15 @@
+require 'participants/participant'
+
 class PagesController < ApplicationController
   def home
     if user_signed_in?
-	  #saves the participant id for all later sql commands
-	  sql = "select participant_id from users 
-		where id=#{current_user.id};"
-	  participant_id = ActiveRecord::Base.connection.execute(sql)
-	  #Grabs the participant
-	  sql2 = "select participant.* from participant 
-		where participant_id=#{participant_id[0]["participant_id"]};"
-	  participant = ActiveRecord::Base.connection.execute(sql2)
-	  @participant_name = participant[0]["first_name"].capitalize + " " + participant[0]["last_name"].capitalize
-	  @participant_initials = participant[0]["first_name"] + participant[0]["last_name"]
-	  @is_leader = (participant[0]["is_leader"] == 't' ? true : false)
-	  @is_admin = (participant[0]["is_admin"] == 't' ? true : false)
-	  
+      current_participant = Participant.new(current_user.id)
+
+      @participant_name = current_participant.name
+      @participant_initials = current_participant.initials
+      @is_leader = current_participant.is_leader
+      @is_admin = current_participant.is_admin
+
 	  #Grabs their donations
 	  if @is_admin
 		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
