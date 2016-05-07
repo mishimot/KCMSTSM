@@ -16,7 +16,7 @@
 	<% if @donations != nil %>
 		<tr>
 			<td>Total</td>
-			<td><%= @donations[0]["sum"] %></td>
+			<td><%= @donations[0]["donation_value"].sum %></td>
 		</tr>
 		<% @donations.each do |d| %>
 		  <tr>
