@@ -13,7 +13,7 @@ class Participant
 
   def query_participant_id(current_user_id)
 	  query = "select participant_id from users 
-    where id=#{current_user.id};"
+    where id=#{current_user_id};"
 
 	  return ActiveRecord::Base.connection.execute(query)
   end
