@@ -14,6 +14,7 @@ class PagesController < ApplicationController
 	  @participant_team = current_participant.team
 	  @donations = current_participant.donations
 	  @sum_donations = current_participant.sum_donations
+	  @audit = nil
 	  
 	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
 	  
