@@ -112,7 +112,7 @@ class PagesController < ApplicationController
 	  @is_leader = current_participant.is_leader
       @is_admin = current_participant.is_admin
 	  @participant_team = current_participant.team
-	  @team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{@participant_team}';")
+	  @team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{@participant_team}';")[0]["team_country"]
 	  if @is_leader
 		@TOTAL_COST = 3500
 		@team_member_donations = ActiveRecord::Base.connection.execute("select p.first_name, p.last_name, p.is_leader, sum(donation_value)
