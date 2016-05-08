@@ -12,7 +12,7 @@ class Donation
   end
   
   def query_donation(donation_id)
-	  query = "select donation.* from donation where donation_id=#{donation_id};"
+	  query = "select donation.* from donation where donation_id='#{donation_id}';"
 	  
 	  return ActiveRecord::Base.connection.execute(query)
   end
