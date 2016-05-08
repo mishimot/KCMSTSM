@@ -5,7 +5,7 @@ class Participant
 	  participant_id = query_participant_id(current_user_id)
 	  participant = query_participant(participant_id)
 
-	  @id = participant_id
+	  @id = participant_id[0]["participant_id"]
 	  @name = participant[0]["first_name"].capitalize + " " + participant[0]["last_name"].capitalize
 	  @initials = participant[0]["first_name"] + participant[0]["last_name"]
 	  @is_leader = (participant[0]["is_leader"] == 't' ? true : false)
