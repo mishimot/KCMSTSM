@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><%= link_to "Home", root_path %></li>
-		<% if Participant.new(current_user.id).is_leader %>
+		<% if user_signed_in? and Participant.new(current_user.id).is_leader %>
 			<li><%= link_to "Team Total", teammanagement_path %></li>
         <% end %>
       </ul>
