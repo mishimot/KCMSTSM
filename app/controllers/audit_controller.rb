@@ -13,8 +13,7 @@ class AuditController < ApplicationController
 	  @donation_value = donation.donation_value
 	  @is_check = donation.is_check
 	  @check_number = donation.check_number
-	  @participants = ActiveRecord::Base.connection.execute("select first_name, 
-	  last_name, participant_id from participant where is_active = true;")
+	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true;")
 	  
 	  if request.post?
 		donor_first_name = params[:donor_first_name].upcase
