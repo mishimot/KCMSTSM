@@ -11,10 +11,4 @@ class Audit
 	  
 	  return ActiveRecord::Base.connection.execute(query)
   end
-  
-  def audit_count(donation_id)
-	  query = "select count(*) from audit where donation_id='#{donation_id}';"
-	  
-	  return ActiveRecord::Base.connection.execute(query)
-  end
 end

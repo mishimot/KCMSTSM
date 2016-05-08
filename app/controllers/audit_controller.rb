@@ -37,7 +37,7 @@ class AuditController < ApplicationController
   end
   
   def insert_audit(donation_id, auditor_initials)
-	  x = Audit.audit_count(donation_id)[0]["count"]
+	  x = audit_count(donation_id)[0]["count"]
 	  if x == 0
 		query = "insert into audit(donation_id, audit_date, auditor) 
 		values (#{donation_id}, #{Time.now}, '#{auditor_initials}');"
@@ -47,5 +47,11 @@ class AuditController < ApplicationController
 	  end
 	  
 	  ActiveRecord::Base.connection.execute(query)
+  end
+  
+  def audit_count(donation_id)
+	  query = "select count(*) from audit where donation_id='#{donation_id}';"
+	  
+	  return ActiveRecord::Base.connection.execute(query)
   end
 end
