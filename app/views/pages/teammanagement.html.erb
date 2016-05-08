@@ -14,7 +14,7 @@
 	  <% else %>
 	    <td><%= u["first_name"] + " " + u["last_name"] %></td>
 	  <% end %>
-      <td><%= u["sum"].to_i, :precision => 2, :delimiter => ',') %> </td>
+      <td><%= number_with_precision(u["sum"].to_i, :precision => 2, :delimiter => ',') %> </td>
 	  
 	  <% if @TOTAL_COST - u["sum"].to_i <= 0 || u["is_leader"] %>
 	    <% if u["is_leader"] %>
