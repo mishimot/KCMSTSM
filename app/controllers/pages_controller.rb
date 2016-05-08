@@ -5,6 +5,7 @@ class PagesController < ApplicationController
   def home
     if user_signed_in?
       current_participant = Participant.new(current_user.id)
+	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true;")
 
 	  @participant_id = current_participant.id
       @participant_name = current_participant.name
@@ -15,8 +16,6 @@ class PagesController < ApplicationController
 	  @donations = current_participant.donations
 	  @sum_donations = current_participant.sum_donations
 	  @audit = nil
-	  
-	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true;")
 	  
 	  #Saving donations
 	  if @is_admin and request.post?
