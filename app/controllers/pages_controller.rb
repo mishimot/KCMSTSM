@@ -97,8 +97,8 @@ class PagesController < ApplicationController
   
   def deletedonation
 	donation_id = params[:donation]
-	ActiveRecord::Base.connection.execute("delete from donation where donation_id=#{donation_id}")
 	ActiveRecord::Base.connection.execute("delete from audit where donation_id=#{donation_id}")
+	ActiveRecord::Base.connection.execute("delete from donation where donation_id=#{donation_id}")
 	@message = 'Donation Deleted!'
   end
 
