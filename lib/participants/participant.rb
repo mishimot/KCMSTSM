@@ -36,12 +36,12 @@ class Participant
 	  if is_admin
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  ORDER BY DESC d.donation_id;"	
+		  ORDER BY d.donation_id DESC;"	
 	  elsif is_leader
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
 		  where p.team_id='#{participant_team}'
-		  ORDER BY DESC d.donation_id;"
+		  ORDER BY d.donation_id DESC;"
 	  else
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
