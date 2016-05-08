@@ -32,17 +32,17 @@ class AuditController < ApplicationController
 	donation = Donation.new(@donation_id)
 	donation.update(donor_first_name, donor_last_name, donation_value,
 	is_check, check_number)	
-	audit = insert_audit(@donation_id, auditor)
+	audit = insert_audit(@donation_id, auditor_initials)
 	redirect_to root_path
   end
   
-  def insert_audit(donation_id, auditor)
-	  x = audit_count(donation_id)[0]["count"]
+  def insert_audit(donation_id, auditor_initials)
+	  x = Audit.audit_count(donation_id)[0]["count"]
 	  if x == 0
 		query = "insert into audit(donation_id, audit_date, auditor) 
-		values (#{donation_id}, #{Time.now}, '#{auditor}');"
+		values (#{donation_id}, #{Time.now}, '#{auditor_initials}');"
 	  else
-		query = "update audit set audit_date=#{Time.now}, auditor='#{auditor}'
+		query = "update audit set audit_date=#{Time.now}, auditor='#{auditor_initials}'
 		where donation_id=#{donation_id};"
 	  end
 	  

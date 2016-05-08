@@ -4,7 +4,6 @@ class Audit
 	  audit = query_audit(donation_id)
 	  @audit_date = audit.num_tuples.zero? ? "" : audit[0]["audit_date"]
 	  @auditor = audit.num_tuples.zero? ? "" : audit[0]["auditor"]
-	  
   end
   
   def query_audit(donation_id)
