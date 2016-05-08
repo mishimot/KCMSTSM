@@ -2,8 +2,8 @@ class Audit
   attr_accessor :audit_date, :auditor
   def initialize(donation_id)
 	  audit = query_audit(donation_id)
-	  @audit_date = audit[0]["audit_date"]
-	  @auditor = audit[0]["auditor"]
+	  @audit_date = audit.length == 0 ? "" : audit[0]["audit_date"]
+	  @auditor = audit.length == 0 ? "" : audit[0]["auditor"]
 	  
   end
   
