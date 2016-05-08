@@ -19,18 +19,18 @@
 		<tr>
 		  <%= form_tag submit_audit_path do %>
 			<td>
-			<input list="participant_name" name="participant_name" autocomplete="off">
+			<input list="participant_name" name="participant_name" value=<% @name %> autocomplete="off">
 			<datalist id="participant_name">
 			<% @participants.each do |p| %>
 			  <option value="<%= p["first_name"] + " " + p["last_name"] + ", " + p["participant_id"] %>">
 			<% end %>
 			</datalist>
 			</td>
-			<td><%= text_field_tag(:donor_first_name, :value => @first_name) %></td>
-			<td><%= text_field_tag(:donor_last_name, :value => @last_name) %></td>
-			<td><%= text_field_tag(:donation_value, :value => @donation_value) %></td>
-			<td><%= check_box_tag(:is_check, :value => @is_check) %></td>
-			<td><%= text_field_tag(:check_number, :value => @check_number) %></td>
+			<td><%= text_field_tag(:donor_first_name, @first_name) %></td>
+			<td><%= text_field_tag(:donor_last_name, @last_name) %></td>
+			<td><%= text_field_tag(:donation_value, @donation_value) %></td>
+			<td><%= check_box_tag(:is_check, @is_check) %></td>
+			<td><%= text_field_tag(:check_number, @check_number) %></td>
 			<%= hidden_field_tag :auditor_initials, @auditor  %>
 			<td><%= submit_tag("Submit") %></td>
 		  <% end %>

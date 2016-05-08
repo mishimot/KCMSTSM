@@ -9,7 +9,9 @@ class AuditController < ApplicationController
 	  @auditor = params[:auditor]
 	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true;")
 	  donation = Donation.new(donation_id)
-	
+	  
+	  participant = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where participant_id=#{donation.participant_id};")
+	  @name = participant[0]["first_name"] + " " + participant[0]["last_name"] + ", " + participant[0]["participant_id"]
 	  @last_name = donation.last_name
 	  @first_name = donation.first_name
 	  @donation_value = donation.donation_value
