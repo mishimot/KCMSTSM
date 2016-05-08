@@ -19,7 +19,7 @@
 			<td><%= d["participant_first_name"].split.map(&:capitalize).join(' ') %></td>
 			<td><%= d["participant_last_name"].split.map(&:capitalize).join(' ') %></td>
 			<td><%= d["first_name"].split.map(&:capitalize).join(' ') + " " + d["last_name"].split.map(&:capitalize).join(' ') %></td>
-			<td>$<%= d["donation_value"] %></td>
+			<td>$<%= number_with_precision(d["donation_value"], :precision => 2, :delimiter => ',') %></td>
 			<td><%= d["check_number"] %></td>
 			<td><%= d["recorder"] %></td>
 			<% if @is_admin %>
