@@ -15,20 +15,20 @@ class AuditController < ApplicationController
 	  @donation_value = donation.donation_value
 	  @is_check = donation.is_check
 	  @check_number = donation.check_number
-	  
-	  if request.post?
-		donor_first_name = params[:donor_first_name].upcase
-		donor_last_name = params[:donor_last_name].upcase
-		donation_value = params[:donation_value]
-		is_check = (params[:is_check] == '1' ? true : false)
-		check_number = params[:check_number]
-		auditor_initials = params[:auditor_initials]
-		donation.update(donor_first_name, donor_last_name, donation_value,
-		is_check, check_number)	
-		audit = insert_audit(donation_id, auditor)
-		redirect_to root_path
-	  end
 	end
+  end
+  
+  def submit_audit
+	donor_first_name = params[:donor_first_name].upcase
+	donor_last_name = params[:donor_last_name].upcase
+	donation_value = params[:donation_value]
+	is_check = (params[:is_check] == '1' ? true : false)
+	check_number = params[:check_number]
+	auditor_initials = params[:auditor_initials]
+	donation.update(donor_first_name, donor_last_name, donation_value,
+	is_check, check_number)	
+	audit = insert_audit(donation_id, auditor)
+	redirect_to root_path
   end
   
   def insert_audit(donation_id, auditor)
