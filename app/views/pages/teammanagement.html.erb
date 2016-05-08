@@ -14,17 +14,17 @@
 	  <% else %>
 	    <td><%= u["first_name"] + " " + u["last_name"] %></td>
 	  <% end %>
-      <td><%= u["sum"], :precision => 2, :delimiter => ',') %> </td>
+      <td><%= u["sum"].to_i, :precision => 2, :delimiter => ',') %> </td>
 	  
-	  <% if @TOTAL_COST - u["sum"] <= 0 || u["is_leader"] %>
+	  <% if @TOTAL_COST - u["sum"].to_i <= 0 || u["is_leader"] %>
 	    <% if u.leader? %>
-		  <td><font color=#007A00><%= number_with_precision(0 - u["sum"], :precision => 2, :delimiter => ',') %></font></td>
+		  <td><font color=#007A00><%= number_with_precision(0 - u["sum"].to_i, :precision => 2, :delimiter => ',') %></font></td>
 		<% else %>
-	      <td><font color=#007A00><%= number_with_precision(@TOTAL_COST - u["sum"], :precision => 2, :delimiter => ',') %></font></td>
+	      <td><font color=#007A00><%= number_with_precision(@TOTAL_COST - u["sum"].to_i, :precision => 2, :delimiter => ',') %></font></td>
 		<% end %>
 		<td><font color=#007A00> Yes </font></td>
 	  <% else %>
-	    <td><font color=#990000><%= number_with_precision(@TOTAL_COST - u["sum"], :precision => 2, :delimiter => ',') %></font></td>
+	    <td><font color=#990000><%= number_with_precision(@TOTAL_COST - u["sum"].to_i, :precision => 2, :delimiter => ',') %></font></td>
 		<td><font color=#990000> No </font></td>
 	  <% end %>
 	</tr>
