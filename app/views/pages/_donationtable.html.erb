@@ -23,9 +23,15 @@
 			<td><%= d["check_number"] %></td>
 			<td><%= d["recorder"] %></td>
 			<% if @is_admin %>
-			  <td><strong>Audit</strong></td>
-			  <td><strong>Audit Date</strong></td>
-			  <td><strong>Edit</strong></td>
+			  <td><strong>d["auditor"]</strong></td>
+			  <td><strong>d["audit_date"]</strong></td>
+			  <td>
+				<%= form_tag audit_path do %>
+					<%= hidden_field_tag :donation, d["donation_id"] %>
+					<%= hidden_field_tag :auditor, @participant_initials  %>
+					<%= submit_tag("Audit") %><div>
+				<% end %>
+			  </td>
 			  <td>
 				<%= form_tag deletedonation_path do %>
 					<%= hidden_field_tag :donation, d["donation_id"] %>

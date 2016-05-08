@@ -10,9 +10,11 @@ Rails.application.routes.draw do
   get "leaderlookup" => "pages#leaderlookup"
   get "teammanagement" => "pages#teammanagement"
   get "teamtotals" => "pages#teamtotals"
+  get "audit" => "audit#audit"
   post "registered" => "pages#registered"
   post "deletedonation" => "pages#deletedonation"
   post "/" => "pages#home"
+  post "audit" => "audit#audit"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
