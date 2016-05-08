@@ -13,7 +13,7 @@ class Participant
 	  @team = participant[0]["team_id"]
 	  
 	  @donations = query_donations(@participant_id, @participant_team, @is_admin, @is_leader)
-	  temp_sum_donations = query_donations_sum(@participant_id, @participant_team, @is_admin, @is_leader)
+	  temp_sum_donations = query_donations_sum(@participant_id, @participant_team, @is_admin, @is_leader)[0]["sum"]
 	  @sum_donations = (temp_sum_donations == nil ? 0 : temp_sum_donations)
   end
 
