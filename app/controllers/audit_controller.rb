@@ -40,9 +40,9 @@ class AuditController < ApplicationController
 	  x = audit_count(donation_id)[0]["count"]
 	  if x == 0
 		query = "insert into audit(donation_id, audit_date, auditor) 
-		values (#{donation_id}, #{Time.now}, '#{auditor_initials}');"
+		values (#{donation_id}, '#{Time.now}', '#{auditor_initials}');"
 	  else
-		query = "update audit set audit_date=#{Time.now}, auditor='#{auditor_initials}'
+		query = "update audit set audit_date='#{Time.now}', auditor='#{auditor_initials}'
 		where donation_id=#{donation_id};"
 	  end
 	  
