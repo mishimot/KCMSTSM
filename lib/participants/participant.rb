@@ -30,36 +30,36 @@ class Participant
 	  return ActiveRecord::Base.connection.execute(query)
   end
   
-  def query_donations(@participant_id, @participant_team, @is_admin, @is_leader)
+  def query_donations(participant_id, participant_team, is_admin, is_leader)
 	  #Grabs their donations
-	  if @is_admin
+	  if is_admin
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id;"	
-	  elsif @is_leader
+	  elsif is_leader
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where p.team_id='#{@participant_team}';"
+		  where p.team_id='#{participant_team}';"
 	  else
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where p.participant_id=#{@participant_id};"
+		  where p.participant_id=#{participant_id};"
 	  end  
 	  
 	  return ActiveRecord::Base.connection.execute(query)
   end
   
-    def query_donations_sum(@participant_id, @participant_team, @is_admin, @is_leader)
+    def query_donations_sum(participant_id, participant_team, is_admin, is_leader)
 	  #Grabs their donations
-	  if @is_admin
+	  if is_admin
 		query = "select sum(d.donation_value) from donation d;"
-	  elsif @is_leader
+	  elsif is_leader
 		query = "select sum(d.donation_value) from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where p.team_id='#{@participant_team}';"
+		  where p.team_id='#{participant_team}';"
 	  else
 		query = "select sum(d.donation_value) from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  where p.participant_id=#{@participant_id};"
+		  where p.participant_id=#{participant_id};"
 	  end  
 	  
 	  return ActiveRecord::Base.connection.execute(query)
