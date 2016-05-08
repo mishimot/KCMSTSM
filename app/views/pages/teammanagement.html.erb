@@ -17,7 +17,7 @@
       <td><%= u["sum"].to_i, :precision => 2, :delimiter => ',') %> </td>
 	  
 	  <% if @TOTAL_COST - u["sum"].to_i <= 0 || u["is_leader"] %>
-	    <% if u.leader? %>
+	    <% if u["is_leader"] %>
 		  <td><font color=#007A00><%= number_with_precision(0 - u["sum"].to_i, :precision => 2, :delimiter => ',') %></font></td>
 		<% else %>
 	      <td><font color=#007A00><%= number_with_precision(@TOTAL_COST - u["sum"].to_i, :precision => 2, :delimiter => ',') %></font></td>
