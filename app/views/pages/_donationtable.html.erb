@@ -30,6 +30,7 @@
 				<%= form_tag audit_path do %>
 					<%= hidden_field_tag :donation, d["donation_id"] %>
 					<%= hidden_field_tag :auditor, @participant_initials  %>
+					<%= hidden_field_tag :is_admin, @is_admin  %>
 					<%= submit_tag("Audit") %><div>
 				<% end %>
 			  </td>

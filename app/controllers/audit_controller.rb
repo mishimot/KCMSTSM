@@ -3,6 +3,7 @@ require 'donations/donation'
 
 class AuditController < ApplicationController
   def audit
+	@is_admin = params[:is_admin]
     if user_signed_in? and @is_admin
 	  donation_id = params[:donation_id]
 	  @auditor = params[:auditor]
