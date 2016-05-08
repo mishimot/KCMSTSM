@@ -16,7 +16,7 @@ class PagesController < ApplicationController
 	  @sum_donations = current_participant.sum_donations
 	  @audit = nil
 	  
-	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
+	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true;")
 	  
 	  #Saving donations
 	  if @is_admin and request.post?
