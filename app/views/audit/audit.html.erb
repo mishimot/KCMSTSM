@@ -19,7 +19,7 @@
 		<tr>
 		  <%= form_tag submit_audit_path do %>
 			<td>
-			<input list="participant_name" name="participant_name" value=<% @name %> autocomplete="off">
+			<input list="participant_name" name="participant_name" value="<%= @name %>" autocomplete="off">
 			<datalist id="participant_name">
 			<% @participants.each do |p| %>
 			  <option value="<%= p["first_name"] + " " + p["last_name"] + ", " + p["participant_id"] %>">
