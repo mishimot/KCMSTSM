@@ -47,6 +47,7 @@ class AuditController < ApplicationController
 		query = "update audit set audit_date='#{Time.now}', auditor='#{auditor_initials}'
 		where donation_id=#{donation_id};"
 		ActiveRecord::Base.connection.execute(query)
+		@msg = "failed #{x}"
 	  end
   end
   
