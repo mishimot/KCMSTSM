@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post "deletedonation" => "pages#deletedonation"
   post "/" => "pages#home"
   post "audit" => "audit#audit"
+  post "submit_audit" => "audit#submit_audit"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
