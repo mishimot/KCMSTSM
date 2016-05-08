@@ -32,7 +32,7 @@ class AuditController < ApplicationController
 	donation = Donation.new(@donation_id)
 	donation.update(@donation_id, donor_first_name, donor_last_name, donation_value,
 	is_check, check_number)	
-	audit = insert_audit(@donation_id, auditor_initials)
+	insert_audit(@donation_id, auditor_initials)
 	redirect_to root_path
   end
   
