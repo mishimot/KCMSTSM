@@ -5,10 +5,10 @@ class AuditController < ApplicationController
   def audit
 	@is_admin = params[:is_admin]
     if user_signed_in? and @is_admin
-	  donation_id = params[:donation_id]
+	  @donation_id = params[:donation_id]
 	  @auditor = params[:auditor]
 	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true;")
-	  donation = Donation.new(donation_id)
+	  donation = Donation.new(@donation_id)
 	  
 	  participant = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where participant_id=#{donation.participant_id};")
 	  @name = participant[0]["first_name"] + " " + participant[0]["last_name"] + ", " + participant[0]["participant_id"]
@@ -27,6 +27,9 @@ class AuditController < ApplicationController
 	is_check = (params[:is_check] == '1' ? true : false)
 	check_number = params[:check_number]
 	auditor_initials = params[:auditor_initials]
+	@donation_id = params[:donation_id]
+
+	donation = Donation.new(@donation_id)
 	donation.update(donor_first_name, donor_last_name, donation_value,
 	is_check, check_number)	
 	audit = insert_audit(donation_id, auditor)
