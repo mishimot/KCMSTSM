@@ -14,10 +14,6 @@
 	  <% end %>
     </tr>
 	<% if @donations != nil %>
-		<tr>
-			<td>Total</td>
-			<td><%= @donations["donation_value"].sum %></td>
-		</tr>
 		<% @donations.each do |d| %>
 		  <tr>
 			<td><%= d["participant_first_name"].split.map(&:capitalize).join(' ') %></td>

@@ -5,25 +5,16 @@ class PagesController < ApplicationController
     if user_signed_in?
       current_participant = Participant.new(current_user.id)
 
+	  @participant_id = current_participant.id
       @participant_name = current_participant.name
       @participant_initials = current_participant.initials
       @is_leader = current_participant.is_leader
       @is_admin = current_participant.is_admin
-
-	  #Grabs their donations
-	  if @is_admin
-		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
-		  inner join donation d on d.participant_id=p.participant_id;")
-		@participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
-	  elsif @is_leader
-		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
-		  inner join donation d on d.participant_id=p.participant_id
-		  where p.team_id='#{participant[0]["team_id"]}';")
-	  else
-		@donations = ActiveRecord::Base.connection.execute("select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
-		  inner join donation d on d.participant_id=p.participant_id
-		  where p.participant_id=#{participant_id[0]["participant_id"]};")
-	  end
+	  @participant_team = current_participant.team
+	  @donations = current_participant.donations
+	  @donations_sum = current_participant.donations_sum
+	  
+	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true")
 	  
 	  #Saving donations
 	  if @is_admin and request.post?
@@ -35,6 +26,7 @@ class PagesController < ApplicationController
 		  is_check = (params[:is_check] == '1' ? true : false)
 		  check_number = params[:check_number]
 		  recorder = params[:recorder]
+		  
 		  if is_check
 			  ActiveRecord::Base.connection.execute("insert into donation
 				(last_name, first_name, donation_value, is_check, check_number, recorder, participant_id)
