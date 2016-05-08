@@ -1,2 +1,34 @@
-<h1>Pages#teammanagement</h1>
-<p>Find me in app/views/pages/teammanagement.html.erb</p>
+<div class = "container">
+  <h1><%= @team_country %>'s Totals Table</h1><br>
+  <table class = "table table-striped table-bordered">
+    <tr class ="info">
+      <td><strong>Name</strong></td>
+      <td><strong>Total Amount Raised</strong></td>
+	  <td><strong>Total Amount Remaining</strong></td>
+	  <td><strong>Goal Reached?</strong></td>
+    </tr>
+	<% @team_member_donations.each do |u| %>
+	<tr>
+	  <% if u["is_leader"] %>
+		<td><%= u["first_name"] + " " + u["last_name"] + " (leader)" %></td>
+	  <% else %>
+	    <td><%= u["first_name"] + " " + u["last_name"] %></td>
+	  <% end %>
+      <td><%= u["sum"], :precision => 2, :delimiter => ',') %> </td>
+	  
+	  <% if @TOTAL_COST - u["sum"] <= 0 || u["is_leader"] %>
+	    <% if u.leader? %>
+		  <td><font color=#007A00><%= number_with_precision(0 - u["sum"], :precision => 2, :delimiter => ',') %></font></td>
+		<% else %>
+	      <td><font color=#007A00><%= number_with_precision(@TOTAL_COST - u["sum"], :precision => 2, :delimiter => ',') %></font></td>
+		<% end %>
+		<td><font color=#007A00> Yes </font></td>
+	  <% else %>
+	    <td><font color=#990000><%= number_with_precision(@TOTAL_COST - u["sum"], :precision => 2, :delimiter => ',') %></font></td>
+		<td><font color=#990000> No </font></td>
+	  <% end %>
+	</tr>
+	<% end %>
+  </table>
+
+</div>

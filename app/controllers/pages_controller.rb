@@ -103,9 +103,23 @@ class PagesController < ApplicationController
   end
 
   def leaderlookup
+	
   end
 
   def teammanagement
+    if user_signed_in?
+	  current_participant = Participant.new(current_user.id)
+	  @is_leader = current_participant.is_leader
+      @is_admin = current_participant.is_admin
+	  @participant_team = current_participant.team
+	  @team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{participant_team}';")
+	  if @is_leader
+		@TOTAL_COST = 3500
+		@team_member_donations = ActiveRecord::Base.connection.execute("select p.first_name, p.last_name, p.is_leader, sum(donation_value)
+		from participant p inner join donation d on d.participant_id=p.participant_id 
+		where p.is_active=true and p.team_id='#{@participant_team}' group by p.participant_id;")
+	  end
+	end
   end
 
   def teamtotals
