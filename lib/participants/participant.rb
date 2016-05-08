@@ -36,17 +36,17 @@ class Participant
 	  if is_admin
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
-		  ORDER BY DESC;"	
+		  ORDER BY DESC d.donation_id;"	
 	  elsif is_leader
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
 		  where p.team_id='#{participant_team}'
-		  ORDER BY DESC;"
+		  ORDER BY DESC d.donation_id;"
 	  else
 		query = "select d.*, p.first_name as participant_first_name, p.last_name as participant_last_name from participant p
 		  inner join donation d on d.participant_id=p.participant_id
 		  where p.participant_id=#{participant_id}
-		  ORDER BY DESC;"
+		  ORDER BY DESC d.donation_id;"
 	  end  
 	  
 	  return ActiveRecord::Base.connection.execute(query)
