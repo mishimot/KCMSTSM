@@ -30,7 +30,7 @@ class AuditController < ApplicationController
 	@donation_id = params[:donation_id]
 
 	donation = Donation.new(@donation_id)
-	donation.update(donor_first_name, donor_last_name, donation_value,
+	donation.update(@donation_id, donor_first_name, donor_last_name, donation_value,
 	is_check, check_number)	
 	audit = insert_audit(@donation_id, auditor_initials)
 	redirect_to root_path
@@ -41,12 +41,12 @@ class AuditController < ApplicationController
 	  if x == 0
 		query = "insert into audit(donation_id, audit_date, auditor) 
 		values (#{donation_id}, '#{Time.now}', '#{auditor_initials}');"
+		ActiveRecord::Base.connection.execute(query)
 	  else
 		query = "update audit set audit_date='#{Time.now}', auditor='#{auditor_initials}'
 		where donation_id=#{donation_id};"
+		ActiveRecord::Base.connection.execute(query)
 	  end
-	  
-	  ActiveRecord::Base.connection.execute(query)
   end
   
   def audit_count(donation_id)

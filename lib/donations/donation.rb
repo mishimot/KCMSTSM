@@ -18,13 +18,15 @@ class Donation
 	  return ActiveRecord::Base.connection.execute(query)
   end
   
-  def update(donor_first_name, donor_last_name, donation_value, is_check, check_number)
+  def update(donation_id, donor_first_name, donor_last_name, donation_value, is_check, check_number)
 	  if is_check
 		  query = "update donation set first_name='#{donor_first_name}', last_name='#{donor_last_name}',
-		  donation_value=#{donation_value}, is_check=#{is_check}, check_number=#{check_number};"
+		  donation_value=#{donation_value}, is_check=#{is_check}, check_number=#{check_number}
+		  where donation_id = #{donation_id};"
 	  else 
 		  query = "update donation set first_name='#{donor_first_name}', last_name='#{donor_last_name}',
-		  donation_value=#{donation_value}, is_check=#{is_check}, check_number=NULL;"
+		  donation_value=#{donation_value}, is_check=#{is_check}, check_number=NULL
+		  where donation_id = #{donation_id};"
 	  end
 	  return ActiveRecord::Base.connection.execute(query)
   end
