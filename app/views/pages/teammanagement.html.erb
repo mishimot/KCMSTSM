@@ -9,15 +9,15 @@
     </tr>
 	<% @team_member_donations.each do |u| %>
 	<tr>
-	  <% if u["is_leader"] %>
+	  <% if u["is_leader"] == 't' %>
 		<td><%= u["first_name"] + " " + u["last_name"] + " (leader)" %></td>
 	  <% else %>
 	    <td><%= u["first_name"] + " " + u["last_name"] %></td>
 	  <% end %>
       <td><%= number_with_precision(u["sum"].to_i, :precision => 2, :delimiter => ',') %> </td>
 	  
-	  <% if @TOTAL_COST - u["sum"].to_i <= 0 || u["is_leader"] %>
-	    <% if u["is_leader"] %>
+	  <% if @TOTAL_COST - u["sum"].to_i <= 0 || u["is_leader"] == 't' %>
+	    <% if u["is_leader"] == 't' %>
 		  <td><font color=#007A00><%= number_with_precision(0 - u["sum"].to_i, :precision => 2, :delimiter => ',') %></font></td>
 		<% else %>
 	      <td><font color=#007A00><%= number_with_precision(@TOTAL_COST - u["sum"].to_i, :precision => 2, :delimiter => ',') %></font></td>
@@ -30,7 +30,5 @@
 	</tr>
 	<% end %>
   </table>
-  
-  <%= @team_member_donations[0]["is_leader"] %>
 
 </div>
