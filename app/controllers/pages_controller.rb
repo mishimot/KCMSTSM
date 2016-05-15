@@ -109,6 +109,7 @@ class PagesController < ApplicationController
 	  @is_leader = current_participant.is_leader
 	  if @is_admin or @is_leader
 		trainee_id = params[:id]
+		user_id = ActiveRecord::Base.connection.execute("select id from users where participant_id='#{trainee_id}';")
 		trainee = Participant.new(trainee_id)
 		@trainee = trainee.name
 		@donations = trainee.donations
