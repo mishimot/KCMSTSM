@@ -9,7 +9,7 @@
     </tr>
 	<% @team_member_donations.each do |u| %>
 	<tr>
-	  <% if u["is_leader"] == 't' %>
+	  <% if u["is_leader"] == "t" %>
 		<td><%= u["first_name"] + " " + u["last_name"] + " (leader)" %></td>
 	  <% else %>
 	    <td><%= u["first_name"] + " " + u["last_name"] %></td>
