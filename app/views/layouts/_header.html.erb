@@ -20,7 +20,7 @@
 				<li><%= link_to "Team Total", teammanagement_path %></li>
 			<% end %>
 			<% if Participant.new(current_user.id).is_admin %>
-				<li><%= link_to "Team Totals", teammanagement_path %></li>
+				<li><%= link_to "Team Totals", teamtotals_path %></li>
 			<% end %>
         <% end %>
       </ul>
