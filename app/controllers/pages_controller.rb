@@ -108,12 +108,10 @@ class PagesController < ApplicationController
 	  if current_participant.is_admin or current_participant.is_leader
 	  trainee_id = params[:id]
       trainee = Participant.new(trainee_id)
-	  @participant_name = trainee.name
+	  @trainee = trainee.name
 	  @donations = trainee.donations
 	  @sum_donations = trainee.sum_donations
 	  @audit = nil
-	  
-	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true;")
 	  end
 	end
   end
