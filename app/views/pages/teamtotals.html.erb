@@ -1,2 +1,30 @@
-<h1>Pages#teamtotals</h1>
-<p>Find me in app/views/pages/teamtotals.html.erb</p>
+<div class = "container">
+  <h1>Team Totals Table</h1><br>
+  <table class = "table table-striped table-bordered">
+    <tr class ="info">
+      <td><strong>Team</strong></td>
+      <td><strong>Total Amount</strong></td>
+    </tr>
+	<% Team.all.each do |team| %>
+	<tr>
+	  <td><strong><%= link_to team.name, teammanagement_path(:id => team.id) %></strong></td>
+      <td><%= number_with_precision(@team_total_cash[team.id - 1], :precision => 2, :delimiter => ',') %> </td>
+      <td><%= number_with_precision(@team_total_check[team.id - 1], :precision => 2, :delimiter => ',') %></td>
+      <td><%= number_with_precision(@team_total_amount[team.id - 1], :precision => 2, :delimiter => ',') %></td>
+	</tr>
+	<% end %>
+	<tr>
+	    <td><strong>Leaders</strong></td>
+        <td><%= number_with_precision(@team_total_cash[Team.all.size], :precision => 2, :delimiter => ',') %> </td>
+        <td><%= number_with_precision(@team_total_check[Team.all.size], :precision => 2, :delimiter => ',') %></td>
+        <td><%= number_with_precision(@team_total_amount[Team.all.size], :precision => 2, :delimiter => ',') %></td>
+	</tr>
+    <tr>
+      <td><strong>Overall</strong></td>
+      <td><%= number_with_precision(@total_cash, :precision => 2, :delimiter => ',') %> </td>
+      <td><%= number_with_precision(@total_check, :precision => 2, :delimiter => ',') %></td>
+      <td><%= number_with_precision(@total_amount, :precision => 2, :delimiter => ',') %></td>
+    </tr>
+  </table>
+
+</div>

@@ -109,19 +109,35 @@ class PagesController < ApplicationController
   def teammanagement
     if user_signed_in?
 	  current_participant = Participant.new(current_user.id)
-	  @is_leader = current_participant.is_leader
-      @is_admin = current_participant.is_admin
-	  @participant_team = current_participant.team
-	  @team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{@participant_team}';")[0]["team_country"]
+	  is_leader = current_participant.is_leader
+      is_admin = current_participant.is_admin
+	  participant_team = current_participant.team
+	  @TOTAL_COST = 1750
 	  if @is_leader
-		@TOTAL_COST = 3500
+		@team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{participant_team}';")[0]["team_country"]
 		@team_member_donations = ActiveRecord::Base.connection.execute("select p.first_name, p.last_name, p.is_leader, sum(donation_value)
 		from participant p inner join donation d on d.participant_id=p.participant_id 
-		where p.is_active=true and p.team_id='#{@participant_team}' group by p.participant_id;")
+		where p.is_active=true and p.team_id='#{participant_team}' group by p.participant_id;")
+	  elsif is_admin
+		team_id = params[:id]
+		@team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{team_id}';")[0]["team_country"]
+		@team_member_donations = ActiveRecord::Base.connection.execute("select p.first_name, p.last_name, p.is_leader, sum(donation_value)
+		from participant p inner join donation d on d.participant_id=p.participant_id 
+		where p.is_active=true and p.team_id='#{team_id}' group by p.participant_id;")
 	  end
 	end
   end
 
   def teamtotals
+	if user_signed_in?
+		current_participant = Participant.new(current_user.id)
+		is_admin = current_participant.is_admin
+		if is_admin
+			@team_donations = ActiveRecord::Base.connection.execute("select t.team_country, t.team_id, sum(donation_value) from participant p
+				inner join donation d on d.participant_id=p.participant_id
+				inner join team t on t.team_id=p.team_id and p.is_active
+				group by t.team_country, t.team_id;")
+		end
+	end
   end
 end

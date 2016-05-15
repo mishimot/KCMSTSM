@@ -8,6 +8,7 @@ class Donation
 	  @first_name = donation[0]["first_name"].capitalize
 	  @participant_id = donation[0]["participant_id"]
 	  @donation_value = donation[0]["donation_value"]
+	  @is_check = donation[0]["is_check"] == 't' ? true : false
 	  @check_number = donation[0]["check_number"]
 	  
   end
