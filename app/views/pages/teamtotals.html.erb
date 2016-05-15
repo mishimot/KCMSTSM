@@ -3,8 +3,6 @@
   <table class = "table table-striped table-bordered">
     <tr class ="info">
       <td><strong>Team</strong></td>
-      <td><strong>Total Cash Amount</strong></td>
-      <td><strong>Total Check Amount</strong></td>
       <td><strong>Total Amount</strong></td>
     </tr>
 	<% @team_donations.each do |team| %>
@@ -12,11 +10,11 @@
 	  <td><strong><%= link_to team["team_country"], teammanagement_path(:id => team["team_id"]) %></strong></td>
       <td><%= number_with_precision(team["sum"], :precision => 2, :delimiter => ',') %></td>
 	</tr>
+	<% end %>
 	<tr>
       <td><strong>Overall</strong></td>
       <td><%= number_with_precision(@total_amount, :precision => 2, :delimiter => ',') %></td>
     </tr>
-	<% end %>
   </table>
 
 </div>
