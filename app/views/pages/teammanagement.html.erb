@@ -10,9 +10,9 @@
 	<% @team_member_donations.each do |u| %>
 	<tr>
 	  <% if (u["is_leader"] == 't') %>
-		<td><%= u["first_name"] + " " + u["last_name"] + " (leader)" %></td>
+		<td><%= link_to u["first_name"] + " " + u["last_name"] + " (leader)", root_path %></td>
 	  <% else %>
-	    <td><%= u["first_name"] + " " + u["last_name"] %></td>
+	    <td><%= link_to u["first_name"] + " " + u["last_name"], leaderlookup_path(:id => u[participant_id]) %></td>
 	  <% end %>
       <td><%= number_with_precision(u["sum"].to_i, :precision => 2, :delimiter => ',') %> </td>
 	  

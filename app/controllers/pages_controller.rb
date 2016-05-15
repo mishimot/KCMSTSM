@@ -103,7 +103,19 @@ class PagesController < ApplicationController
   end
 
   def leaderlookup
-	
+	if user_signed_in?
+	  current_participant = Participant.new(current_user.id)
+	  if current_participant.is_admin or current_participant.is_leader
+	  trainee_id = params[:id]
+      trainee = Participant.new(trainee_id)
+	  @participant_name = trainee.name
+	  @donations = trainee.donations
+	  @sum_donations = trainee.sum_donations
+	  @audit = nil
+	  
+	  @participants = ActiveRecord::Base.connection.execute("select first_name, last_name, participant_id from participant where is_active = true;")
+	  end
+	end
   end
 
   def teammanagement
@@ -115,17 +127,17 @@ class PagesController < ApplicationController
 	  @TOTAL_COST = 1750
 	  if is_leader
 		@team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{participant_team}';")[0]["team_country"]
-		@team_member_donations = ActiveRecord::Base.connection.execute("select p.first_name, p.last_name, p.is_leader, sum(donation_value)
+		@team_member_donations = ActiveRecord::Base.connection.execute("select p.participant_id, p.first_name, p.last_name, p.is_leader, sum(donation_value)
 		from participant p inner join donation d on d.participant_id=p.participant_id 
 		where p.is_active=true and p.team_id='#{participant_team}' group by p.participant_id
-		order by p.is_admin, p.first_name;")
+		order by p.is_leader, p.first_name;")
 	  elsif is_admin
 		team_id = params[:id]
 		@team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{team_id}';")[0]["team_country"]
-		@team_member_donations = ActiveRecord::Base.connection.execute("select p.first_name, p.last_name, p.is_leader, sum(donation_value)
+		@team_member_donations = ActiveRecord::Base.connection.execute("select p.participant_id, p.first_name, p.last_name, p.is_leader, sum(donation_value)
 		from participant p inner join donation d on d.participant_id=p.participant_id 
 		where p.is_active=true and p.team_id='#{team_id}' group by p.participant_id
-		order by p.is_admin, p.first_name;")
+		order by p.is_leader, p.first_name;")
 	  end
 	end
   end
