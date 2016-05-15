@@ -105,13 +105,15 @@ class PagesController < ApplicationController
   def leaderlookup
 	if user_signed_in?
 	  current_participant = Participant.new(current_user.id)
-	  if current_participant.is_admin or current_participant.is_leader
-	  trainee_id = params[:id]
-      trainee = Participant.new(trainee_id)
-	  @trainee = trainee.name
-	  @donations = trainee.donations
-	  @sum_donations = trainee.sum_donations
-	  @audit = nil
+	  @is_admin = current_participant.is_admin
+	  @is_leader = current_participant.is_leader
+	  if @is_admin or @is_leader
+		trainee_id = params[:id]
+		trainee = Participant.new(trainee_id)
+		@trainee = trainee.name
+		@donations = trainee.donations
+		@sum_donations = trainee.sum_donations
+		@audit = nil
 	  end
 	end
   end
