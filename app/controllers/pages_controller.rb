@@ -137,6 +137,7 @@ class PagesController < ApplicationController
 				inner join donation d on d.participant_id=p.participant_id
 				inner join team t on t.team_id=p.team_id and p.is_active
 				group by t.team_country, t.team_id;")
+			@total_amount = Participant.new(current_user.id).sum_donations
 		end
 	end
   end
