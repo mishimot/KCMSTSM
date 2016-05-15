@@ -7,7 +7,7 @@
     </tr>
 	<% @team_donations.each do |team| %>
 	<tr>
-	  <td><strong><%= link_to team["team_country"], teammanagement_path(:id => team["team_id"]) %></strong></td>
+	  <td><strong><%= link_to team["team_country"].capitalize, teammanagement_path(:id => team["team_id"]) %></strong></td>
       <td><%= number_with_precision(team["sum"], :precision => 2, :delimiter => ',') %></td>
 	</tr>
 	<% end %>
