@@ -118,14 +118,14 @@ class PagesController < ApplicationController
 		@team_member_donations = ActiveRecord::Base.connection.execute("select p.first_name, p.last_name, p.is_leader, sum(donation_value)
 		from participant p inner join donation d on d.participant_id=p.participant_id 
 		where p.is_active=true and p.team_id='#{participant_team}' group by p.participant_id
-		order by p.participant_id;")
+		order by p.is_admin, p.first_name;")
 	  elsif is_admin
 		team_id = params[:id]
 		@team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{team_id}';")[0]["team_country"]
 		@team_member_donations = ActiveRecord::Base.connection.execute("select p.first_name, p.last_name, p.is_leader, sum(donation_value)
 		from participant p inner join donation d on d.participant_id=p.participant_id 
 		where p.is_active=true and p.team_id='#{team_id}' group by p.participant_id
-		order by p.participant_id;")
+		order by p.is_admin, p.first_name;")
 	  end
 	end
   end
