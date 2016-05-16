@@ -24,7 +24,7 @@ class AuditController < ApplicationController
 	donor_first_name = params[:donor_first_name].upcase
 	donor_last_name = params[:donor_last_name].upcase
 	donation_value = params[:donation_value]
-	is_check = (params[:is_check] == '1' ? true : false)
+	is_check = (params[:is_check] == '1' ? 't' : 'f')
 	check_number = params[:check_number]
 	auditor_initials = params[:auditor_initials]
 	@donation_id = params[:donation_id]
