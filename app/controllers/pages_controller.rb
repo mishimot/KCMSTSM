@@ -25,7 +25,7 @@ class PagesController < ApplicationController
 		  donor_first_name = params[:donor_first_name].upcase
 		  donor_last_name = params[:donor_last_name].upcase
 		  donation_value = params[:donation_value]
-		  is_check = (params[:is_check] == 1 ? true : false)
+		  is_check = (params[:is_check] == '1' ? true : false)
 		  check_number = params[:check_number]
 		  recorder = params[:recorder]
 		  
