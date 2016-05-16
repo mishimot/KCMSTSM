@@ -51,9 +51,9 @@ class PagesController < ApplicationController
   end
   
   def registered
-	code = params[:code].gsub(/[^0-9A-Za-z]/, '')
-	first_name = params[:first_name].gsub(/[^0-9A-Za-z]/, '').upcase
-	last_name = params[:last_name].gsub(/[^0-9A-Za-z]/, '').upcase
+	code = params[:code].gsub(/[^0-9A-Za-z:space:]/, '')
+	first_name = params[:first_name].gsub(/[^0-9A-Za-z:space:]/, '').upcase
+	last_name = params[:last_name].gsub(/[^0-9A-Za-z:space:]/, '').upcase
 	email = params[:email].gsub(/[^0-9@-Za-z.]/, '')
 	password = params[:password].gsub(/[^0-9A-Za-z]/, '')
 	validate_password = params[:validate_password].gsub(/[^0-9A-Za-z]/, '')
