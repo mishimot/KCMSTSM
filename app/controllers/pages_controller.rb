@@ -25,7 +25,7 @@ class PagesController < ApplicationController
 		  donor_first_name = params[:donor_first_name].upcase
 		  donor_last_name = params[:donor_last_name].upcase
 		  donation_value = params[:donation_value]
-		  is_check = (params[:is_check] == '1' ? true : false)
+		  is_check = (params[:is_check] == 1 ? true : false)
 		  check_number = params[:check_number]
 		  recorder = params[:recorder]
 		  
@@ -51,7 +51,7 @@ class PagesController < ApplicationController
   end
   
   def registered
-	code = params[:code].gsub(/[^0-9A-Za-z]/, '').upcase
+	code = params[:code].gsub(/[^0-9A-Za-z]/, '')
 	first_name = params[:first_name].gsub(/[^0-9A-Za-z]/, '').upcase
 	last_name = params[:last_name].gsub(/[^0-9A-Za-z]/, '').upcase
 	email = params[:email].gsub(/[^0-9@-Za-z.]/, '')
