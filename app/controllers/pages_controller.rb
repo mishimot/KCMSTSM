@@ -127,7 +127,7 @@ class PagesController < ApplicationController
 	  is_leader = current_participant.is_leader
       is_admin = current_participant.is_admin
 	  participant_team = current_participant.team
-	  @TOTAL_COST = 1750
+	  @TOTAL_COST = 3500
 	  if is_admin
 		team_id = params[:id]
 		@team_country = ActiveRecord::Base.connection.execute("select team_country from team where team_id='#{team_id}';")[0]["team_country"]
