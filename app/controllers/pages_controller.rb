@@ -163,7 +163,7 @@ class PagesController < ApplicationController
 		current_participant = Participant.new(current_user.id)
 		is_admin = current_participant.is_admin
 		if is_admin
-			ActiveRecord::Base.connection.execute("\COPY 
+			ActiveRecord::Base.connection.execute("COPY 
 			(select p.first_name as participant_first_name, p.last_name as participant_last_name, 
 			d.first_name as donor_first_name, d.last_name as donor_last_name, d.donation_value, d.check_number, d.recorder, 
 			a.audit_date, a.auditor from participant p 
