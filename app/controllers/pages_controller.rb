@@ -157,4 +157,20 @@ class PagesController < ApplicationController
 		end
 	end
   end
+  
+  def create_csv
+	if user_signed_in?
+		current_participant = Participant.new(current_user.id)
+		is_admin = current_participant.is_admin
+		if is_admin
+			ActiveRecord::Base.connection.execute("\COPY 
+			(select p.first_name as participant_first_name, p.last_name as participant_last_name, 
+			d.first_name as donor_first_name, d.last_name as donor_last_name, d.donation_value, d.check_number, d.recorder, 
+			a.audit_date, a.auditor from participant p 
+			inner join donation d on d.participant_id=p.participant_id 
+			inner join audit a on a.donation_id=d.donation_id) 
+			TO '/tmp/donations.csv' DELIMITER ',' CSV HEADER;")
+		end
+	end
+  end
 end
