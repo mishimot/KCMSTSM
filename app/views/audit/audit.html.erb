@@ -29,7 +29,7 @@
 			<td><%= text_field_tag(:donor_first_name, @first_name) %></td>
 			<td><%= text_field_tag(:donor_last_name, @last_name) %></td>
 			<td><%= text_field_tag(:donation_value, @donation_value) %></td>
-			<td><%= check_box_tag(:is_check, :checked => @is_check) %></td>
+			<td><%= check_box_tag(:is_check, :value => '1', :checked => @is_check) %></td>
 			<td><%= text_field_tag(:check_number, @check_number) %></td>
 			<%= hidden_field_tag :auditor_initials, @auditor  %>
 			<%= hidden_field_tag :donation_id, @donation_id  %>
