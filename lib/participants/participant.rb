@@ -1,8 +1,7 @@
 class Participant
   attr_accessor :id, :name, :initials, :is_leader, :is_admin, :team, :donations, :sum_donations
 
-  def initialize(current_user_id)
-	  participant_id = query_participant_id(current_user_id)
+  def initialize(participant_id)
 	  participant = query_participant(participant_id)
 
 	  @id = participant_id[0]["participant_id"]
@@ -15,13 +14,6 @@ class Participant
 	  @donations = query_donations(@id, @team, @is_admin, @is_leader)
 	  temp_sum_donations = query_donations_sum(@id, @team, @is_admin, @is_leader)[0]["sum"]
 	  @sum_donations = (temp_sum_donations == nil ? 0 : temp_sum_donations)
-  end
-
-  def query_participant_id(current_user_id)
-	  query = "select participant_id from users 
-    where id=#{current_user_id};"
-
-	  return ActiveRecord::Base.connection.execute(query)
   end
 
   def query_participant(participant_id)
