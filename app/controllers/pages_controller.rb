@@ -4,7 +4,7 @@ require 'audits/audit'
 class PagesController < ApplicationController
   def home
     if user_signed_in?
-      current_participant = Participant.new(:user_id => current_user.id)
+      current_participant = Participant.new(current_user.id)
 
 	  @participant_id = current_participant.id
       @participant_name = current_participant.name
@@ -106,13 +106,13 @@ class PagesController < ApplicationController
 
   def leaderlookup
 	if user_signed_in?
-	  current_participant = Participant.new(:user_id => current_user.id)
+	  current_participant = Participant.new(current_user.id)
 	  @is_admin = current_participant.is_admin
 	  @is_leader = current_participant.is_leader
 	  if @is_admin or @is_leader
 		trainee_id = params[:id]
 		user_id = ActiveRecord::Base.connection.execute("select id from users where participant_id='#{trainee_id}';")[0]["id"]
-		trainee = Participant.new(:participant_id =>user_id)
+		trainee = Participant.new(user_id)
 		@trainee = trainee.name
 		@donations = trainee.donations
 		@sum_donations = trainee.sum_donations
@@ -123,7 +123,7 @@ class PagesController < ApplicationController
 
   def teammanagement
     if user_signed_in?
-	  current_participant = Participant.new(:user_id => current_user.id)
+	  current_participant = Participant.new(current_user.id)
 	  is_leader = current_participant.is_leader
       is_admin = current_participant.is_admin
 	  participant_team = current_participant.team
@@ -147,7 +147,7 @@ class PagesController < ApplicationController
 
   def teamtotals
 	if user_signed_in?
-		current_participant = Participant.new(:user_id => current_user.id)
+		current_participant = Participant.new(current_user.id)
 		is_admin = current_participant.is_admin
 		if is_admin
 			@team_donations = ActiveRecord::Base.connection.execute("select t.team_country, t.team_id, sum(donation_value) from participant p
@@ -155,14 +155,14 @@ class PagesController < ApplicationController
 				inner join team t on t.team_id=p.team_id and p.is_active
 				group by t.team_country, t.team_id
 				order by t.team_country;")
-			@total_amount = Participant.new(:user_id => current_user.id).sum_donations
+			@total_amount = Participant.new(current_user.id).sum_donations
 		end
 	end
   end
   
   def create_csv
 	if user_signed_in?
-		current_participant = Participant.new(:user_id => current_user.id)
+		current_participant = Participant.new(current_user.id)
 		is_admin = current_participant.is_admin
 		if is_admin
 			ActiveRecord::Base.connection.execute("COPY 
