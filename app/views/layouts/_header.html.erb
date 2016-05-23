@@ -16,10 +16,10 @@
       <ul class="nav navbar-nav">
         <li><%= link_to "Home", root_path %></li>
 		<% if user_signed_in? %>
-			<% if Participant.new(query_participant_id(current_user.id)).is_leader %>
+			<% if Participant.new(current_user.id).is_leader %>
 				<li><%= link_to "Team Total", teammanagement_path %></li>
 			<% end %>
-			<% if Participant.new(query_participant_id(current_user.id)).is_admin %>
+			<% if Participant.new(current_user.id).is_admin %>
 				<li><%= link_to "Team Totals", teamtotals_path %></li>
 			<% end %>
         <% end %>
