@@ -1,8 +1,12 @@
 class Participant
   attr_accessor :id, :name, :initials, :is_leader, :is_admin, :team, :donations, :sum_donations
 
-  def initialize(current_user_id)
-	  participant_id = query_participant_id(current_user_id)
+  def initialize(args)
+	  if args["user_id"] != nil 
+		participant_id = query_participant_id(current_user_id)
+	  else
+		participant_id = args["participant_id"]
+	  end
 	  participant = query_participant(participant_id)
 
 	  @id = participant_id[0]["participant_id"]
