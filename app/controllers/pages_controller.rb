@@ -154,7 +154,7 @@ class PagesController < ApplicationController
 				inner join team t on t.team_id=p.team_id and p.is_active
 				group by t.team_country, t.team_id
 				order by t.team_country;")
-			@total_amount = Participant.new(current_user.id).sum_donations
+			@total_amount = Participant.new(query_participant_id(current_user.id)).sum_donations
 		end
 	end
   end
