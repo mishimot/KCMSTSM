@@ -3,7 +3,7 @@ class Participant
 
   def initialize(args)
 	  if args["user_id"] != nil 
-		participant_id = query_participant_id(current_user_id)
+		participant_id = query_participant_id(args["user_id"])
 	  else
 		participant_id = args["participant_id"]
 	  end
